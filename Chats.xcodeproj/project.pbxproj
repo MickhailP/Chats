@@ -16,6 +16,8 @@
 		D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787665B2A31E01D002B9717 /* ValidationError.swift */; };
 		D78766602A31E01D002B9717 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787665C2A31E01D002B9717 /* ServerError.swift */; };
 		D78766632A31E04C002B9717 /* AuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766622A31E04C002B9717 /* AuthData.swift */; };
+		D787666E2A31E0E5002B9717 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */; };
+		D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666D2A31E0E5002B9717 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		D787665B2A31E01D002B9717 /* ValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		D787665C2A31E01D002B9717 /* ServerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
 		D78766622A31E04C002B9717 /* AuthData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthData.swift; sourceTree = "<group>"; };
+		D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
+		D787666D2A31E0E5002B9717 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,7 @@
 				D70DF7E32A31DE8B001B98E5 /* ChatsApp.swift */,
 				D70DF7E52A31DE8B001B98E5 /* ContentView.swift */,
 				D78766572A31DFF7002B9717 /* Models */,
+				D787666A2A31E0C6002B9717 /* Services */,
 				D70DF7E72A31DE8E001B98E5 /* Assets.xcassets */,
 				D70DF7E92A31DE8E001B98E5 /* Preview Content */,
 			);
@@ -104,6 +109,23 @@
 				D78766622A31E04C002B9717 /* AuthData.swift */,
 			);
 			path = AuthData;
+			sourceTree = "<group>";
+		};
+		D787666A2A31E0C6002B9717 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D787666B2A31E0D1002B9717 /* Networking */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D787666B2A31E0D1002B9717 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */,
+				D787666D2A31E0E5002B9717 /* NetworkService.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,6 +202,8 @@
 				D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */,
 				D787665E2A31E01D002B9717 /* NotFoundError.swift in Sources */,
 				D78766632A31E04C002B9717 /* AuthData.swift in Sources */,
+				D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */,
+				D787666E2A31E0E5002B9717 /* NetworkProtocol.swift in Sources */,
 				D787665D2A31E01D002B9717 /* UnauthorisedError.swift in Sources */,
 				D70DF7E42A31DE8B001B98E5 /* ChatsApp.swift in Sources */,
 				D78766602A31E01D002B9717 /* ServerError.swift in Sources */,
