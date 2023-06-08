@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D70DF7E42A31DE8B001B98E5 /* ChatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70DF7E32A31DE8B001B98E5 /* ChatsApp.swift */; };
-		D70DF7E62A31DE8B001B98E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70DF7E52A31DE8B001B98E5 /* ContentView.swift */; };
+		D70DF7E62A31DE8B001B98E5 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70DF7E52A31DE8B001B98E5 /* AuthView.swift */; };
 		D70DF7E82A31DE8E001B98E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70DF7E72A31DE8E001B98E5 /* Assets.xcassets */; };
 		D70DF7EB2A31DE8E001B98E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70DF7EA2A31DE8E001B98E5 /* Preview Assets.xcassets */; };
+		D766A3DE2A321341004E17FF /* SquaredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D766A3DD2A321341004E17FF /* SquaredButton.swift */; };
 		D787665D2A31E01D002B9717 /* UnauthorisedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766592A31E01D002B9717 /* UnauthorisedError.swift */; };
 		D787665E2A31E01D002B9717 /* NotFoundError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787665A2A31E01D002B9717 /* NotFoundError.swift */; };
 		D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787665B2A31E01D002B9717 /* ValidationError.swift */; };
@@ -19,14 +20,17 @@
 		D787666E2A31E0E5002B9717 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */; };
 		D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666D2A31E0E5002B9717 /* NetworkService.swift */; };
 		D78766712A31E186002B9717 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766702A31E185002B9717 /* NetworkMonitor.swift */; };
+		D7F746592A31EA9600E6D06D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F746582A31EA9600E6D06D /* AuthViewModel.swift */; };
+		D7F7465D2A31FB4100E6D06D /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D70DF7E02A31DE8B001B98E5 /* Chats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70DF7E32A31DE8B001B98E5 /* ChatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsApp.swift; sourceTree = "<group>"; };
-		D70DF7E52A31DE8B001B98E5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D70DF7E52A31DE8B001B98E5 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		D70DF7E72A31DE8E001B98E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D70DF7EA2A31DE8E001B98E5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D766A3DD2A321341004E17FF /* SquaredButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquaredButton.swift; sourceTree = "<group>"; };
 		D78766592A31E01D002B9717 /* UnauthorisedError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthorisedError.swift; sourceTree = "<group>"; };
 		D787665A2A31E01D002B9717 /* NotFoundError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotFoundError.swift; sourceTree = "<group>"; };
 		D787665B2A31E01D002B9717 /* ValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
@@ -35,6 +39,8 @@
 		D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		D787666D2A31E0E5002B9717 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		D78766702A31E185002B9717 /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		D7F746582A31EA9600E6D06D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +74,8 @@
 			isa = PBXGroup;
 			children = (
 				D70DF7E32A31DE8B001B98E5 /* ChatsApp.swift */,
-				D70DF7E52A31DE8B001B98E5 /* ContentView.swift */,
+				D7F746552A31E9C900E6D06D /* Screens */,
+				D7F7465A2A31FB0A00E6D06D /* CustomViews */,
 				D78766572A31DFF7002B9717 /* Models */,
 				D787666A2A31E0C6002B9717 /* Services */,
 				D70DF7E72A31DE8E001B98E5 /* Assets.xcassets */,
@@ -83,6 +90,14 @@
 				D70DF7EA2A31DE8E001B98E5 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D766A3DF2A32134A004E17FF /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				D766A3DD2A321341004E17FF /* SquaredButton.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		D78766572A31DFF7002B9717 /* Models */ = {
@@ -129,6 +144,32 @@
 				D78766702A31E185002B9717 /* NetworkMonitor.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		D7F746552A31E9C900E6D06D /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				D70DF7E52A31DE8B001B98E5 /* AuthView.swift */,
+				D7F746582A31EA9600E6D06D /* AuthViewModel.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		D7F7465A2A31FB0A00E6D06D /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				D7F7465B2A31FB1C00E6D06D /* ViewModifiers */,
+				D766A3DF2A32134A004E17FF /* Buttons */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		D7F7465B2A31FB1C00E6D06D /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,13 +242,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D70DF7E62A31DE8B001B98E5 /* ContentView.swift in Sources */,
+				D70DF7E62A31DE8B001B98E5 /* AuthView.swift in Sources */,
 				D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */,
+				D766A3DE2A321341004E17FF /* SquaredButton.swift in Sources */,
 				D787665E2A31E01D002B9717 /* NotFoundError.swift in Sources */,
+				D7F7465D2A31FB4100E6D06D /* ViewModifiers.swift in Sources */,
 				D78766632A31E04C002B9717 /* AuthData.swift in Sources */,
 				D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */,
 				D787666E2A31E0E5002B9717 /* NetworkProtocol.swift in Sources */,
 				D787665D2A31E01D002B9717 /* UnauthorisedError.swift in Sources */,
+				D7F746592A31EA9600E6D06D /* AuthViewModel.swift in Sources */,
 				D78766712A31E186002B9717 /* NetworkMonitor.swift in Sources */,
 				D70DF7E42A31DE8B001B98E5 /* ChatsApp.swift in Sources */,
 				D78766602A31E01D002B9717 /* ServerError.swift in Sources */,
@@ -267,7 +311,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -321,7 +365,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -347,6 +391,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -354,9 +399,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = MichailDev.Chats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -376,6 +424,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -383,9 +432,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = MichailDev.Chats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

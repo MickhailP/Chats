@@ -11,7 +11,7 @@ import SwiftUI
 struct ChatsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+				AuthView(viewModel: AuthViewModel())
         }
     }
 }
