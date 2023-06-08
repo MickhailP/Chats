@@ -10,6 +10,12 @@ import SwiftUI
 struct AuthView: View {
 
 	 @StateObject var viewModel: AuthViewModel
+
+	 @FocusState private var focusField: Field?
+
+	 enum Field {
+		  case mask, phone, code
+	 }
 	 
 	 var body: some View {
 		  VStack(spacing: 20) {
@@ -29,6 +35,7 @@ struct AuthView: View {
 					 Button {
 						  withAnimation {
 								viewModel.resetUI()
+								focusField = .mask
 						  }
 					 } label: {
 						  Text("Edit number")
@@ -39,10 +46,17 @@ struct AuthView: View {
 
 				Spacer()
 		  }
+		  .onTapGesture {
+				focusField = .none
+		  }
 		  .padding()
 		  .background(
 				LinearGradient(gradient: Gradient(colors: [.cyan, .blue]), startPoint: .top, endPoint: .bottom)
-					 .edgesIgnoringSafeArea(.all))
+					 .edgesIgnoringSafeArea(.all)
+		  )
+		  .alert(isPresented: $viewModel.showError) {
+				Alert(title: Text("Error"), message: Text(viewModel.errorMessage))
+		  }
 	 }
 }
 
@@ -53,10 +67,12 @@ extension AuthView {
 		  Group {
 				phoneNumberTextField
 
-				TextField("Verification code", value: $viewModel.phoneNumber, format: .number)
+				TextField("Verification code", value: $viewModel.verificationCode, format: .number)
 					 .headlineCapsule()
 					 .shadow(radius: 10, x: 5, y: 5)
 					 .opacity(viewModel.verificationRequested ? 1 : 0)
+					 .keyboardType(.numberPad)
+					 .focused($focusField, equals: .code)
 		  }
 	 }
 
@@ -77,16 +93,22 @@ extension AuthView {
 					 Text("+")
 					 TextField("000", value: $viewModel.countryMask, format: .number)
 						  .frame(maxWidth: 40)
+						  .keyboardType(.numberPad)
+						  .focused($focusField, equals: .mask)
+
 				}
 				.padding(.horizontal, 5)
-				.disabled(viewModel.disablePhoneTextfield)
+				.disabled(viewModel.verificationRequested)
 
 
 				TextField("Phone number", value: $viewModel.phoneNumber, format: .number)
-					 .disabled(viewModel.disablePhoneTextfield)
+					 .disabled(viewModel.verificationRequested)
+					 .keyboardType(.numberPad)
+					 .focused($focusField, equals: .phone)
+
 		  }
 		  .headlineCapsule()
-		  .opacity(viewModel.disablePhoneTextfield ? 0.6 : 1)
+		  .opacity(viewModel.verificationRequested ? 0.6 : 1)
 		  .shadow(radius: 10, x: 5, y: 5)
 	 }
 
@@ -95,22 +117,27 @@ extension AuthView {
 				SquaredButton(buttonTitle: "Send verification code") {
 					 withAnimation {
 						  viewModel.requestVerificationCode(for: viewModel.phoneNumber)
+						  focusField = .code
 					 }
 				}
 		  } else {
 				SquaredButton(buttonTitle: "Authorise") {
 					 withAnimation {
 						  viewModel.authorise()
+						  focusField = .none
 					 }
 				}
 		  }
 	 }
+
 }
 
 
 //MARK: - Preview
 struct ContentView_Previews: PreviewProvider {
 	 static var previews: some View {
-		  AuthView(viewModel: AuthViewModel())
+		  let network = NetworkService()
+		  let authService = AuthService(networkingService: network)
+		  AuthView(viewModel: AuthViewModel(authService: authService))
 	 }
 }
