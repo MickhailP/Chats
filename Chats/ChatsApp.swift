@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct ChatsApp: App {
+	 @StateObject var authenticationService = AuthService(networkingService: NetworkService())
+
     var body: some Scene {
         WindowGroup {
-				AuthView(viewModel: AuthViewModel())
+				AuthView(viewModel: AuthViewModel(authService: authenticationService))
         }
     }
 }

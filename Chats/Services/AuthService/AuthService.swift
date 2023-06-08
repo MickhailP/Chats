@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 
-protocol AuthenticationProtocol: AnyObject & ObservableObject {
+protocol AuthenticationProtocol: AnyObject {
 	 var networkingService: NetworkProtocol { get }
 
 	 func verify(phoneNumber: String) throws
@@ -17,7 +17,8 @@ protocol AuthenticationProtocol: AnyObject & ObservableObject {
 
 
 
-final class AuthService: AuthenticationProtocol {
+
+final class AuthService: AuthenticationProtocol, ObservableObject {
 
 	 let networkingService: NetworkProtocol
 
