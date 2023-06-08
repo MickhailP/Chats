@@ -15,6 +15,7 @@
 		D787665E2A31E01D002B9717 /* NotFoundError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787665A2A31E01D002B9717 /* NotFoundError.swift */; };
 		D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787665B2A31E01D002B9717 /* ValidationError.swift */; };
 		D78766602A31E01D002B9717 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787665C2A31E01D002B9717 /* ServerError.swift */; };
+		D78766632A31E04C002B9717 /* AuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766622A31E04C002B9717 /* AuthData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		D787665A2A31E01D002B9717 /* NotFoundError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotFoundError.swift; sourceTree = "<group>"; };
 		D787665B2A31E01D002B9717 /* ValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		D787665C2A31E01D002B9717 /* ServerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
+		D78766622A31E04C002B9717 /* AuthData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		D78766572A31DFF7002B9717 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D78766612A31E04C002B9717 /* AuthData */,
 				D78766582A31E003002B9717 /* ServerError */,
 			);
 			path = Models;
@@ -93,6 +96,14 @@
 				D787665B2A31E01D002B9717 /* ValidationError.swift */,
 			);
 			path = ServerError;
+			sourceTree = "<group>";
+		};
+		D78766612A31E04C002B9717 /* AuthData */ = {
+			isa = PBXGroup;
+			children = (
+				D78766622A31E04C002B9717 /* AuthData.swift */,
+			);
+			path = AuthData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +179,7 @@
 				D70DF7E62A31DE8B001B98E5 /* ContentView.swift in Sources */,
 				D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */,
 				D787665E2A31E01D002B9717 /* NotFoundError.swift in Sources */,
+				D78766632A31E04C002B9717 /* AuthData.swift in Sources */,
 				D787665D2A31E01D002B9717 /* UnauthorisedError.swift in Sources */,
 				D70DF7E42A31DE8B001B98E5 /* ChatsApp.swift in Sources */,
 				D78766602A31E01D002B9717 /* ServerError.swift in Sources */,
