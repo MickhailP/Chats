@@ -11,6 +11,14 @@
 		D70DF7E62A31DE8B001B98E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70DF7E52A31DE8B001B98E5 /* ContentView.swift */; };
 		D70DF7E82A31DE8E001B98E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70DF7E72A31DE8E001B98E5 /* Assets.xcassets */; };
 		D70DF7EB2A31DE8E001B98E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70DF7EA2A31DE8E001B98E5 /* Preview Assets.xcassets */; };
+		D787665D2A31E01D002B9717 /* UnauthorisedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766592A31E01D002B9717 /* UnauthorisedError.swift */; };
+		D787665E2A31E01D002B9717 /* NotFoundError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787665A2A31E01D002B9717 /* NotFoundError.swift */; };
+		D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787665B2A31E01D002B9717 /* ValidationError.swift */; };
+		D78766602A31E01D002B9717 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787665C2A31E01D002B9717 /* ServerError.swift */; };
+		D78766632A31E04C002B9717 /* AuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766622A31E04C002B9717 /* AuthData.swift */; };
+		D787666E2A31E0E5002B9717 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */; };
+		D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666D2A31E0E5002B9717 /* NetworkService.swift */; };
+		D78766712A31E186002B9717 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766702A31E185002B9717 /* NetworkMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +27,14 @@
 		D70DF7E52A31DE8B001B98E5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D70DF7E72A31DE8E001B98E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D70DF7EA2A31DE8E001B98E5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D78766592A31E01D002B9717 /* UnauthorisedError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthorisedError.swift; sourceTree = "<group>"; };
+		D787665A2A31E01D002B9717 /* NotFoundError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotFoundError.swift; sourceTree = "<group>"; };
+		D787665B2A31E01D002B9717 /* ValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
+		D787665C2A31E01D002B9717 /* ServerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
+		D78766622A31E04C002B9717 /* AuthData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthData.swift; sourceTree = "<group>"; };
+		D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
+		D787666D2A31E0E5002B9717 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		D78766702A31E185002B9717 /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +69,8 @@
 			children = (
 				D70DF7E32A31DE8B001B98E5 /* ChatsApp.swift */,
 				D70DF7E52A31DE8B001B98E5 /* ContentView.swift */,
+				D78766572A31DFF7002B9717 /* Models */,
+				D787666A2A31E0C6002B9717 /* Services */,
 				D70DF7E72A31DE8E001B98E5 /* Assets.xcassets */,
 				D70DF7E92A31DE8E001B98E5 /* Preview Content */,
 			);
@@ -65,6 +83,52 @@
 				D70DF7EA2A31DE8E001B98E5 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D78766572A31DFF7002B9717 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D78766612A31E04C002B9717 /* AuthData */,
+				D78766582A31E003002B9717 /* ServerError */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D78766582A31E003002B9717 /* ServerError */ = {
+			isa = PBXGroup;
+			children = (
+				D787665A2A31E01D002B9717 /* NotFoundError.swift */,
+				D787665C2A31E01D002B9717 /* ServerError.swift */,
+				D78766592A31E01D002B9717 /* UnauthorisedError.swift */,
+				D787665B2A31E01D002B9717 /* ValidationError.swift */,
+			);
+			path = ServerError;
+			sourceTree = "<group>";
+		};
+		D78766612A31E04C002B9717 /* AuthData */ = {
+			isa = PBXGroup;
+			children = (
+				D78766622A31E04C002B9717 /* AuthData.swift */,
+			);
+			path = AuthData;
+			sourceTree = "<group>";
+		};
+		D787666A2A31E0C6002B9717 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D787666B2A31E0D1002B9717 /* Networking */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D787666B2A31E0D1002B9717 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */,
+				D787666D2A31E0E5002B9717 /* NetworkService.swift */,
+				D78766702A31E185002B9717 /* NetworkMonitor.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +202,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D70DF7E62A31DE8B001B98E5 /* ContentView.swift in Sources */,
+				D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */,
+				D787665E2A31E01D002B9717 /* NotFoundError.swift in Sources */,
+				D78766632A31E04C002B9717 /* AuthData.swift in Sources */,
+				D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */,
+				D787666E2A31E0E5002B9717 /* NetworkProtocol.swift in Sources */,
+				D787665D2A31E01D002B9717 /* UnauthorisedError.swift in Sources */,
+				D78766712A31E186002B9717 /* NetworkMonitor.swift in Sources */,
 				D70DF7E42A31DE8B001B98E5 /* ChatsApp.swift in Sources */,
+				D78766602A31E01D002B9717 /* ServerError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
