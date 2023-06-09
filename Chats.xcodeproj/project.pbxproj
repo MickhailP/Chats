@@ -26,6 +26,7 @@
 		D78766712A31E186002B9717 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766702A31E185002B9717 /* NetworkMonitor.swift */; };
 		D7F746592A31EA9600E6D06D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F746582A31EA9600E6D06D /* AuthViewModel.swift */; };
 		D7F7465D2A31FB4100E6D06D /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */; };
+		D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B99B732A32E9BC00992624 /* Endpoints.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		D78766702A31E185002B9717 /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		D7F746582A31EA9600E6D06D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
+		D7B99B732A32E9BC00992624 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 				D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */,
 				D787666D2A31E0E5002B9717 /* NetworkService.swift */,
 				D78766702A31E185002B9717 /* NetworkMonitor.swift */,
+				D7B99B732A32E9BC00992624 /* Endpoints.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				D766A3EA2A325524004E17FF /* AuthService.swift in Sources */,
 				D766A3E62A324C67004E17FF /* Decoder.swift in Sources */,
 				D78766602A31E01D002B9717 /* ServerError.swift in Sources */,
+				D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
