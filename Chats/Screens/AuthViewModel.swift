@@ -15,7 +15,7 @@ final class AuthViewModel: ObservableObject {
 	 @Published var countryNameAndFlag = "RU 🇷🇺"
 	 @Published var countryMask = ""
 	 @Published var phoneNumber = ""
-	 @Published var verificationCode = "133337"
+	 @Published var verificationCode = ""
 
 
 	 @Published private(set) var verificationRequested = false
@@ -94,7 +94,7 @@ final class AuthViewModel: ObservableObject {
 				return
 		  }
 
-		  verificationCode = ""
+		  print(formattedNumber + verificationCode)
 
 		  Task {
 				do {
@@ -118,8 +118,10 @@ final class AuthViewModel: ObservableObject {
 						  errorMessage = ErrorMessage.unknown.rawValue
 					 }
 				}
+
 				await MainActor.run {
 					 isLoading = false
+					 verificationCode = ""
 				}
 		  }
 	 }
@@ -130,7 +132,7 @@ final class AuthViewModel: ObservableObject {
 	 }
 
 	 func sendToRegistration() {
-
+		  authService.shouldRegister = true
 	 }
 
 	 func countryName(countryCode: String) -> String? {
