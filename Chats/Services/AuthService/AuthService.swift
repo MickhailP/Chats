@@ -23,7 +23,7 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 	 let networkingService: NetworkProtocol
 
 	 @Published var verificationCode: Int?
-
+	 @Published var isUserExist:Bool?
 
 	 init(networkingService: NetworkProtocol) {
 		  self.networkingService = networkingService
@@ -52,16 +52,26 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 
 				switch result {
 					 case .success(let data):
-						  if let decoded: VerificationCode = Decoder.decode(data),
-							  decoded.isSuccess == true {
+						  if let decoded: VerificationCode = Decoder.decode(data) {
+
 								await MainActor.run {
-									 verificationCode = 133337
+									if decoded.isSuccess {
+
+										 isUserExist = true
+									} else {
+										 isUserExist = true
+									}
 								}
 						  }
 					 case .failure(let failure):
 						  throw failure
 				}
 		  }
+	 }
+
+	 func authoriseUser(with phone: String, verificationCode: String) {
+
+
 	 }
 
 
