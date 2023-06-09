@@ -19,9 +19,19 @@ final class AuthViewModel: ObservableObject {
 
 
 	 @Published private(set) var verificationRequested = false
+	 @Published private(set) var isLoading = false
 
 	 @Published var showError = false
 	 @Published private(set) var errorMessage = ""
+
+	 var formattedNumber: String? {
+		  if let phoneNumber = Int(phoneNumber), let countryMask = Int(countryMask) {
+				let phoneToRegister = "+" + "\(countryMask)" + "\(phoneNumber)"
+				return phoneToRegister
+		  } else {
+				return nil
+		  }
+	 }
 
 	 
 	 init(authService: AuthenticationProtocol) {
@@ -33,31 +43,90 @@ final class AuthViewModel: ObservableObject {
 	 }
 
 	 func requestVerificationCode(for number: String) {
+		  isLoading = true
+		  verificationRequested = true
 
-		  guard let phoneNumber = Int(phoneNumber), let countryMask = Int(countryMask) else {
+		  guard let formattedNumber else {
 				showError.toggle()
 				errorMessage = "Phone number is empty!"
+				isLoading = false
 				return
 		  }
 
-
-		  verificationRequested = true
-		  let phoneToRegister = "+" + "\(countryMask)" + "\(phoneNumber)"
-
-		  do {
-				try authService.verify(phoneNumber: phoneToRegister)
-		  } catch let error as ErrorMessage {
-				showError.toggle()
-				errorMessage = error.rawValue
-		  } catch {
-				showError.toggle()
-				errorMessage = ErrorMessage.unknown.rawValue
+		  Task {
+				do {
+					 try await authService.verify(phoneNumber: formattedNumber)
+					 await MainActor.run {
+						  isLoading = false
+					 }
+				} catch let error as ErrorMessage {
+					 await MainActor.run {
+						  showError.toggle()
+						  errorMessage = error.rawValue
+						  isLoading = false
+					 }
+				}
+				catch let error as ValidationError {
+					 await MainActor.run {
+						  showError = true
+						  isLoading = false
+						  errorMessage = error.detail.first?.msg ?? "Validation error"
+					 }
+				}
+				catch {
+					 await MainActor.run {
+						  showError.toggle()
+						  errorMessage = ErrorMessage.unknown.rawValue
+						  isLoading = false
+					 }
+				}
 		  }
 	 }
 
+	 
 	 func authorise() {
+		  isLoading = true
 
+		  guard let formattedNumber else {
+				showError.toggle()
+				errorMessage = "Phone number is empty!"
+				isLoading = false
+				return
+		  }
+
+		  verificationCode = ""
+
+		  Task {
+				do {
+					 try await authService.authoriseUser(phoneNumber: formattedNumber, verificationCode: verificationCode)
+					 await MainActor.run {
+						  isLoading = false
+					 }
+				}
+				catch let error as ErrorMessage {
+					 await MainActor.run {
+						  showError = true
+						  errorMessage = error.rawValue
+						  isLoading = false
+					 }
+				}
+				catch let error as NotFoundError {
+					 await MainActor.run {
+						  showError = true
+						  isLoading = false
+						  errorMessage = error.detail.message
+					 }
+				}
+				catch {
+					 await MainActor.run {
+						  showError = true
+						  isLoading = false
+						  errorMessage = ErrorMessage.unknown.rawValue
+					 }
+				}
+		  }
 	 }
+
 
 	 func saveAuthorizationData() {
 
@@ -78,7 +147,8 @@ final class AuthViewModel: ObservableObject {
 
 	 func resetUI() {
 		  // CANCEL REQUEST
-		  
+
 		  verificationRequested = false
+		  verificationCode = ""
 	 }
 }

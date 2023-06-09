@@ -13,9 +13,7 @@ struct SquaredButton: View {
 
     var body: some View {
 		  Button {
-				withAnimation {
-					 action()
-				}
+				action()
 		  } label: {
 				Text(buttonTitle)
 					 .frame(maxHeight: 35)

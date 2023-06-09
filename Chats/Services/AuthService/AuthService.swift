@@ -12,7 +12,8 @@ import Combine
 protocol AuthenticationProtocol: AnyObject {
 	 var networkingService: NetworkProtocol { get }
 
-	 func verify(phoneNumber: String) throws
+	 func verify(phoneNumber: String) async throws
+	 func authoriseUser(phoneNumber: String, verificationCode: String) async throws
 }
 
 
@@ -24,15 +25,16 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 
 	 @Published var verificationCode: Int?
 	 @Published var isUserExist:Bool?
+	 @Published var authData: AuthData?
 
 	 init(networkingService: NetworkProtocol) {
 		  self.networkingService = networkingService
 	 }
 
 
-	 func verify(phoneNumber: String) throws {
+	 func verify(phoneNumber: String) async throws {
 
-		  guard let url = URL(string: "https://plannerok.ru/api/v1/users/send-auth-code/") else {
+		  guard let url = Endpoint.sendAuthCode.url else {
 				throw ErrorMessage.badURl
 		  }
 
@@ -46,32 +48,62 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 				throw ErrorMessage.barRequest
 		  }
 
+		  let result = await networkingService.downloadDataResult(for: request)
 
-		  Task {
-				let result = await networkingService.downloadDataResult(for: request)
+		  switch result {
+				case .success(let data):
+					 guard let decoded: VerificationCode = Decoder.decode(data) else {
+						  throw ErrorMessage.decodingError
+					 }
 
-				switch result {
-					 case .success(let data):
-						  if let decoded: VerificationCode = Decoder.decode(data) {
-
-								await MainActor.run {
-									if decoded.isSuccess {
-
-										 isUserExist = true
-									} else {
-										 isUserExist = true
-									}
-								}
+					 await MainActor.run {
+						  if decoded.isSuccess {
+								isUserExist = true
+						  } else {
+								isUserExist = false
 						  }
-					 case .failure(let failure):
-						  throw failure
-				}
+					 }
+
+				case .failure(let failure):
+					 throw failure
 		  }
 	 }
 
-	 func authoriseUser(with phone: String, verificationCode: String) {
+	 func authoriseUser(phoneNumber: String, verificationCode: String) async throws {
+		  guard let url = Endpoint.checkAuthCode.url else {
+				throw ErrorMessage.badURl
+		  }
 
+		  print(phoneNumber)
+		  print(verificationCode)
 
+		  let json = """
+				{
+				"phone": "\(phoneNumber)",
+				"code": "\(verificationCode)"
+				}
+				"""
+		  guard let request = configureTokenFreeRequest(httpMethod: "POST", url: url, json: json) else {
+				throw ErrorMessage.barRequest
+		  }
+
+		  let result = await networkingService.downloadDataResult(for: request)
+
+		  switch result {
+				case .success(let data):
+					 if let decoded: AuthData = Decoder.decode(data) {
+						  await MainActor.run {
+								authData = decoded
+								print(authData as Any)
+						  }
+					 } else {
+						  print("ERRORr")
+						  throw ErrorMessage.decodingError
+					 }
+				case .failure(let failure):
+					 print("FAIL" + "\(failure)")
+					 throw failure
+		  }
 	 }
 
 
