@@ -26,8 +26,9 @@ final class AuthViewModel: ObservableObject {
 
 	 var formattedNumber: String? {
 		  if let phoneNumber = Int(phoneNumber), let countryMask = Int(countryMask) {
-				let phoneToRegister = "+" + "\(countryMask)" + "\(phoneNumber)"
-				return phoneToRegister
+				let number = "+" + "\(countryMask)" + "\(phoneNumber)"
+
+				return number
 		  } else {
 				return nil
 		  }
@@ -49,6 +50,7 @@ final class AuthViewModel: ObservableObject {
 		  guard let formattedNumber else {
 				showError.toggle()
 				errorMessage = "Phone number is empty!"
+				verificationRequested = false
 				isLoading = false
 				return
 		  }
@@ -56,20 +58,15 @@ final class AuthViewModel: ObservableObject {
 		  Task {
 				do {
 					 try await authService.verify(phoneNumber: formattedNumber)
-					 await MainActor.run {
-						  isLoading = false
-					 }
 				} catch let error as ErrorMessage {
 					 await MainActor.run {
 						  showError.toggle()
 						  errorMessage = error.rawValue
-						  isLoading = false
 					 }
 				}
 				catch let error as ValidationError {
 					 await MainActor.run {
 						  showError = true
-						  isLoading = false
 						  errorMessage = error.detail.first?.msg ?? "Validation error"
 					 }
 				}
@@ -77,8 +74,11 @@ final class AuthViewModel: ObservableObject {
 					 await MainActor.run {
 						  showError.toggle()
 						  errorMessage = ErrorMessage.unknown.rawValue
-						  isLoading = false
 					 }
+				}
+
+				await MainActor.run {
+					 isLoading = false
 				}
 		  }
 	 }
@@ -99,30 +99,27 @@ final class AuthViewModel: ObservableObject {
 		  Task {
 				do {
 					 try await authService.authoriseUser(phoneNumber: formattedNumber, verificationCode: verificationCode)
-					 await MainActor.run {
-						  isLoading = false
-					 }
 				}
 				catch let error as ErrorMessage {
 					 await MainActor.run {
 						  showError = true
 						  errorMessage = error.rawValue
-						  isLoading = false
 					 }
 				}
 				catch let error as NotFoundError {
 					 await MainActor.run {
 						  showError = true
-						  isLoading = false
 						  errorMessage = error.detail.message
 					 }
 				}
 				catch {
 					 await MainActor.run {
 						  showError = true
-						  isLoading = false
 						  errorMessage = ErrorMessage.unknown.rawValue
 					 }
+				}
+				await MainActor.run {
+					 isLoading = false
 				}
 		  }
 	 }
