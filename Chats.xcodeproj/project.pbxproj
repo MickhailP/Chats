@@ -122,8 +122,8 @@
 		D787666A2A31E0C6002B9717 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D7C2DD5E2A335BC000E6CEAD /* DataStorage */,
 				D787666B2A31E0D1002B9717 /* Networking */,
+				D7C2DD5E2A335BC000E6CEAD /* DataStorage */,
 			);
 			path = Services;
 			sourceTree = "<group>";
