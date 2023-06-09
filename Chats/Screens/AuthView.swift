@@ -67,7 +67,7 @@ extension AuthView {
 		  Group {
 				phoneNumberTextField
 
-				TextField("Verification code", value: $viewModel.verificationCode, format: .number)
+				TextField("Verification code", text: $viewModel.verificationCode)
 					 .headlineCapsule()
 					 .shadow(radius: 10, x: 5, y: 5)
 					 .opacity(viewModel.verificationRequested ? 1 : 0)
@@ -91,9 +91,9 @@ extension AuthView {
 						  }
 					 }
 					 Text("+")
-					 TextField("000", value: $viewModel.countryMask, format: .number)
-						  .frame(maxWidth: 40)
-						  .keyboardType(.numberPad)
+					 TextField("000", text: $viewModel.countryMask)
+						  .frame(maxWidth: 60)
+						  .keyboardType(.phonePad)
 						  .focused($focusField, equals: .mask)
 
 				}
@@ -101,9 +101,9 @@ extension AuthView {
 				.disabled(viewModel.verificationRequested)
 
 
-				TextField("Phone number", value: $viewModel.phoneNumber, format: .number)
+				TextField("Phone number", text: $viewModel.phoneNumber)
 					 .disabled(viewModel.verificationRequested)
-					 .keyboardType(.numberPad)
+					 .keyboardType(.phonePad)
 					 .focused($focusField, equals: .phone)
 
 		  }

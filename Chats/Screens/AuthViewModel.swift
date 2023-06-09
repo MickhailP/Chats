@@ -13,9 +13,9 @@ final class AuthViewModel: ObservableObject {
 	 let authService: AuthenticationProtocol
 
 	 @Published var countryNameAndFlag = "RU 🇷🇺"
-	 @Published var countryMask: Int?
-	 @Published var phoneNumber: Int?
-	 @Published var verificationCode = 133337
+	 @Published var countryMask = ""
+	 @Published var phoneNumber = ""
+	 @Published var verificationCode = "133337"
 
 
 	 @Published private(set) var verificationRequested = false
@@ -26,11 +26,15 @@ final class AuthViewModel: ObservableObject {
 	 
 	 init(authService: AuthenticationProtocol) {
 		  self.authService = authService
+
+		  if let regionCode = Locale.current.regionCode {
+				countryNameAndFlag = regionCode
+		  }
 	 }
 
-	 func requestVerificationCode(for number: Int?) {
+	 func requestVerificationCode(for number: String) {
 
-		  guard let phoneNumber, let countryMask else {
+		  guard let phoneNumber = Int(phoneNumber), let countryMask = Int(countryMask) else {
 				showError.toggle()
 				errorMessage = "Phone number is empty!"
 				return
