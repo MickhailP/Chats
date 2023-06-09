@@ -14,8 +14,14 @@ class Decoder {
 		  let decoder = JSONDecoder()
 		  decoder.keyDecodingStrategy = .convertFromSnakeCase
 
-		  let decoded = try? decoder.decode(T.self, from: data)
+		 do {
+			  let decoded = try decoder.decode(T.self, from: data)
+			  return decoded
+		 } catch {
+			  print(error)
+			  print(error.localizedDescription)
+			  return nil
+		 }
 
-		  return decoded
 	 }
 }
