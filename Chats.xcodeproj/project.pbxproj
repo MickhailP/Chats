@@ -24,9 +24,9 @@
 		D787666E2A31E0E5002B9717 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */; };
 		D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666D2A31E0E5002B9717 /* NetworkService.swift */; };
 		D78766712A31E186002B9717 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766702A31E185002B9717 /* NetworkMonitor.swift */; };
+		D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B99B732A32E9BC00992624 /* Endpoints.swift */; };
 		D7F746592A31EA9600E6D06D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F746582A31EA9600E6D06D /* AuthViewModel.swift */; };
 		D7F7465D2A31FB4100E6D06D /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */; };
-		D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B99B732A32E9BC00992624 /* Endpoints.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,9 +48,10 @@
 		D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		D787666D2A31E0E5002B9717 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		D78766702A31E185002B9717 /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		D7B99B732A32E9BC00992624 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		D7B99B752A330EBB00992624 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D7F746582A31EA9600E6D06D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
-		D7B99B732A32E9BC00992624 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +84,7 @@
 		D70DF7E22A31DE8B001B98E5 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
+				D7B99B752A330EBB00992624 /* Info.plist */,
 				D70DF7E32A31DE8B001B98E5 /* ChatsApp.swift */,
 				D7F746552A31E9C900E6D06D /* Screens */,
 				D7F7465A2A31FB0A00E6D06D /* CustomViews */,
@@ -422,7 +424,7 @@
 				DEVELOPMENT_TEAM = 95D5HHTHLU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = Chats/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -455,7 +457,7 @@
 				DEVELOPMENT_TEAM = 95D5HHTHLU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = Chats/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
