@@ -113,23 +113,35 @@ extension AuthView {
 	 }
 
 	 @ViewBuilder func authorizationButtons() -> some View {
-		  if  !viewModel.verificationRequested {
-				SquaredButton(buttonTitle: "Send verification code") {
-					 withAnimation {
+		  if !viewModel.verificationRequested {
+				Button {
+					 if !viewModel.isLoading {
 						  viewModel.requestVerificationCode(for: viewModel.phoneNumber)
 						  focusField = .code
 					 }
+				} label: {
+					 Text("Send verification code")
+						  .frame(maxHeight: 35)
 				}
+				.buttonStyle(.borderedProminent)
+				.tint(.green)
+				.shadow(radius: 5, x: 5, y: 5)
+
 		  } else {
-				SquaredButton(buttonTitle: "Authorise") {
-					 withAnimation {
+				Button {
+					 if !viewModel.isLoading {
 						  viewModel.authorise()
 						  focusField = .none
 					 }
+				} label: {
+					 Text("Authorise")
+						  .frame(maxHeight: 35)
 				}
+				.buttonStyle(.borderedProminent)
+				.tint(.green)
+				.shadow(radius: 5, x: 5, y: 5)
 		  }
 	 }
-
 }
 
 
