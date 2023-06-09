@@ -20,6 +20,7 @@
 		D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666D2A31E0E5002B9717 /* NetworkService.swift */; };
 		D78766712A31E186002B9717 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766702A31E185002B9717 /* NetworkMonitor.swift */; };
 		D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B99B732A32E9BC00992624 /* Endpoints.swift */; };
+		D7C2DD5D2A3355BB00E6CEAD /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = D7C2DD5C2A3355BB00E6CEAD /* SwiftKeychainWrapper */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7C2DD5D2A3355BB00E6CEAD /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +152,9 @@
 			dependencies = (
 			);
 			name = Chats;
+			packageProductDependencies = (
+				D7C2DD5C2A3355BB00E6CEAD /* SwiftKeychainWrapper */,
+			);
 			productName = Chats;
 			productReference = D70DF7E02A31DE8B001B98E5 /* Chats.app */;
 			productType = "com.apple.product-type.application";
@@ -178,6 +183,9 @@
 				Base,
 			);
 			mainGroup = D70DF7D72A31DE8B001B98E5;
+			packageReferences = (
+				D7C2DD5B2A3355BB00E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+			);
 			productRefGroup = D70DF7E12A31DE8B001B98E5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -415,6 +423,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D7C2DD5B2A3355BB00E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D7C2DD5C2A3355BB00E6CEAD /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7C2DD5B2A3355BB00E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D70DF7D82A31DE8B001B98E5 /* Project object */;
 }
