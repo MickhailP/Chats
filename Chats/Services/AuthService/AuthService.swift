@@ -11,6 +11,8 @@ import Combine
 
 protocol AuthenticationProtocol: AnyObject {
 	 var networkingService: NetworkProtocol { get }
+	 var isAuthorized: Bool { get }
+	 var shouldRegister: Bool { get set }
 
 	 func verify(phoneNumber: String) async throws
 	 func authoriseUser(phoneNumber: String, verificationCode: String) async throws
@@ -25,7 +27,12 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 
 	 @Published var verificationCode: Int?
 	 @Published var isUserExist:Bool?
+
 	 @Published var authData: AuthData?
+
+	 @Published private (set) var isVerified = false
+	 @Published private (set) var isAuthorized = false
+	 @Published var shouldRegister = false
 
 	 init(networkingService: NetworkProtocol) {
 		  self.networkingService = networkingService
@@ -58,9 +65,9 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 
 					 await MainActor.run {
 						  if decoded.isSuccess {
-								isUserExist = true
+								isVerified = true
 						  } else {
-								isUserExist = false
+								isVerified = false
 						  }
 					 }
 
@@ -74,15 +81,13 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 				throw ErrorMessage.badURl
 		  }
 
-		  print(phoneNumber)
-		  print(verificationCode)
-
 		  let json = """
 				{
 				"phone": "\(phoneNumber)",
 				"code": "\(verificationCode)"
 				}
 				"""
+
 		  guard let request = configureTokenFreeRequest(httpMethod: "POST", url: url, json: json) else {
 				throw ErrorMessage.barRequest
 		  }
@@ -93,15 +98,23 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 				case .success(let data):
 					 if let decoded: AuthData = Decoder.decode(data) {
 						  await MainActor.run {
-								authData = decoded
-								print(authData as Any)
+
+								if decoded.isUserExists {
+									 //AUTHORISE HERE
+									 KeychainStorage.saveCredentials(decoded)
+									 authData = decoded
+									 isAuthorized = true
+
+								} else {
+									 //GO TO Registration
+									 shouldRegister = true
+									 
+								}
 						  }
 					 } else {
-						  print("ERRORr")
 						  throw ErrorMessage.decodingError
 					 }
 				case .failure(let failure):
-					 print("FAIL" + "\(failure)")
 					 throw failure
 		  }
 	 }
