@@ -9,5 +9,10 @@ import Foundation
 
 struct NotFoundError: Error, Decodable {
 	 // StatusCode = 404
+	 let detail: ErrorDetails
+}
+
+// MARK: - Detail
+struct ErrorDetails: Codable {
 	 let message: String
 }

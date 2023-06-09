@@ -25,6 +25,7 @@ extension NetworkProtocol {
 
 		  let statusCode = response.statusCode
 
+		  print(statusCode)
 		  if statusCode >= 200 && statusCode <= 300 {
 				return content
 		  } else {
