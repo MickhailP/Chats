@@ -8,9 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		D70DF7E42A31DE8B001B98E5 /* ChatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70DF7E32A31DE8B001B98E5 /* ChatsApp.swift */; };
-		D70DF7E62A31DE8B001B98E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70DF7E52A31DE8B001B98E5 /* ContentView.swift */; };
+		D70DF7E62A31DE8B001B98E5 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70DF7E52A31DE8B001B98E5 /* AuthView.swift */; };
 		D70DF7E82A31DE8E001B98E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70DF7E72A31DE8E001B98E5 /* Assets.xcassets */; };
 		D70DF7EB2A31DE8E001B98E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70DF7EA2A31DE8E001B98E5 /* Preview Assets.xcassets */; };
+		D766A3DE2A321341004E17FF /* SquaredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D766A3DD2A321341004E17FF /* SquaredButton.swift */; };
+		D766A3E22A321D2E004E17FF /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D766A3E12A321D2E004E17FF /* ErrorMessages.swift */; };
+		D766A3E42A324BC6004E17FF /* SuccessfulResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D766A3E32A324BC6004E17FF /* SuccessfulResponses.swift */; };
+		D766A3E62A324C67004E17FF /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D766A3E52A324C67004E17FF /* Decoder.swift */; };
+		D766A3EA2A325524004E17FF /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D766A3E92A325524004E17FF /* AuthService.swift */; };
 		D787665D2A31E01D002B9717 /* UnauthorisedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766592A31E01D002B9717 /* UnauthorisedError.swift */; };
 		D787665E2A31E01D002B9717 /* NotFoundError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787665A2A31E01D002B9717 /* NotFoundError.swift */; };
 		D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787665B2A31E01D002B9717 /* ValidationError.swift */; };
@@ -20,16 +25,23 @@
 		D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666D2A31E0E5002B9717 /* NetworkService.swift */; };
 		D78766712A31E186002B9717 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766702A31E185002B9717 /* NetworkMonitor.swift */; };
 		D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B99B732A32E9BC00992624 /* Endpoints.swift */; };
-		D7C2DD5D2A3355BB00E6CEAD /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = D7C2DD5C2A3355BB00E6CEAD /* SwiftKeychainWrapper */; };
-		D7C2DD602A335BDC00E6CEAD /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2DD5F2A335BDC00E6CEAD /* KeychainStorage.swift */; };
+		D7C2DD672A337EB000E6CEAD /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */; };
+		D7C2DD6A2A33877200E6CEAD /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = D7C2DD692A33877200E6CEAD /* SwiftKeychainWrapper */; };
+		D7F746592A31EA9600E6D06D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F746582A31EA9600E6D06D /* AuthViewModel.swift */; };
+		D7F7465D2A31FB4100E6D06D /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D70DF7E02A31DE8B001B98E5 /* Chats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70DF7E32A31DE8B001B98E5 /* ChatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsApp.swift; sourceTree = "<group>"; };
-		D70DF7E52A31DE8B001B98E5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D70DF7E52A31DE8B001B98E5 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		D70DF7E72A31DE8E001B98E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D70DF7EA2A31DE8E001B98E5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D766A3DD2A321341004E17FF /* SquaredButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquaredButton.swift; sourceTree = "<group>"; };
+		D766A3E12A321D2E004E17FF /* ErrorMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessages.swift; sourceTree = "<group>"; };
+		D766A3E32A324BC6004E17FF /* SuccessfulResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulResponses.swift; sourceTree = "<group>"; };
+		D766A3E52A324C67004E17FF /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
+		D766A3E92A325524004E17FF /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		D78766592A31E01D002B9717 /* UnauthorisedError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnauthorisedError.swift; sourceTree = "<group>"; };
 		D787665A2A31E01D002B9717 /* NotFoundError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotFoundError.swift; sourceTree = "<group>"; };
 		D787665B2A31E01D002B9717 /* ValidationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
@@ -39,7 +51,10 @@
 		D787666D2A31E0E5002B9717 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		D78766702A31E185002B9717 /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		D7B99B732A32E9BC00992624 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
-		D7C2DD5F2A335BDC00E6CEAD /* KeychainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
+		D7B99B752A330EBB00992624 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
+		D7F746582A31EA9600E6D06D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7C2DD5D2A3355BB00E6CEAD /* SwiftKeychainWrapper in Frameworks */,
+				D7C2DD6A2A33877200E6CEAD /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,10 +88,13 @@
 		D70DF7E22A31DE8B001B98E5 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
+				D7B99B752A330EBB00992624 /* Info.plist */,
 				D70DF7E32A31DE8B001B98E5 /* ChatsApp.swift */,
-				D70DF7E52A31DE8B001B98E5 /* ContentView.swift */,
+				D7F746552A31E9C900E6D06D /* Screens */,
+				D7F7465A2A31FB0A00E6D06D /* CustomViews */,
 				D78766572A31DFF7002B9717 /* Models */,
 				D787666A2A31E0C6002B9717 /* Services */,
+				D766A3E02A321D15004E17FF /* Utilites */,
 				D70DF7E72A31DE8E001B98E5 /* Assets.xcassets */,
 				D70DF7E92A31DE8E001B98E5 /* Preview Content */,
 			);
@@ -91,9 +109,35 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		D766A3DF2A32134A004E17FF /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				D766A3DD2A321341004E17FF /* SquaredButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		D766A3E02A321D15004E17FF /* Utilites */ = {
+			isa = PBXGroup;
+			children = (
+				D766A3E12A321D2E004E17FF /* ErrorMessages.swift */,
+				D766A3E52A324C67004E17FF /* Decoder.swift */,
+			);
+			path = Utilites;
+			sourceTree = "<group>";
+		};
+		D766A3E82A32550F004E17FF /* AuthService */ = {
+			isa = PBXGroup;
+			children = (
+				D766A3E92A325524004E17FF /* AuthService.swift */,
+			);
+			path = AuthService;
+			sourceTree = "<group>";
+		};
 		D78766572A31DFF7002B9717 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D766A3E32A324BC6004E17FF /* SuccessfulResponses.swift */,
 				D78766612A31E04C002B9717 /* AuthData */,
 				D78766582A31E003002B9717 /* ServerError */,
 			);
@@ -122,8 +166,9 @@
 		D787666A2A31E0C6002B9717 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D766A3E82A32550F004E17FF /* AuthService */,
 				D787666B2A31E0D1002B9717 /* Networking */,
-				D7C2DD5E2A335BC000E6CEAD /* DataStorage */,
+				D7C2DD652A337EB000E6CEAD /* DataStorage */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -139,12 +184,39 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		D7C2DD5E2A335BC000E6CEAD /* DataStorage */ = {
+		D7C2DD652A337EB000E6CEAD /* DataStorage */ = {
 			isa = PBXGroup;
 			children = (
-				D7C2DD5F2A335BDC00E6CEAD /* KeychainStorage.swift */,
+				D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */,
 			);
-			path = DataStorage;
+			name = DataStorage;
+			path = ../DataStorage;
+			sourceTree = "<group>";
+		};
+		D7F746552A31E9C900E6D06D /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				D70DF7E52A31DE8B001B98E5 /* AuthView.swift */,
+				D7F746582A31EA9600E6D06D /* AuthViewModel.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		D7F7465A2A31FB0A00E6D06D /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				D7F7465B2A31FB1C00E6D06D /* ViewModifiers */,
+				D766A3DF2A32134A004E17FF /* Buttons */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		D7F7465B2A31FB1C00E6D06D /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,7 +236,7 @@
 			);
 			name = Chats;
 			packageProductDependencies = (
-				D7C2DD5C2A3355BB00E6CEAD /* SwiftKeychainWrapper */,
+				D7C2DD692A33877200E6CEAD /* SwiftKeychainWrapper */,
 			);
 			productName = Chats;
 			productReference = D70DF7E02A31DE8B001B98E5 /* Chats.app */;
@@ -195,7 +267,7 @@
 			);
 			mainGroup = D70DF7D72A31DE8B001B98E5;
 			packageReferences = (
-				D7C2DD5B2A3355BB00E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				D7C2DD682A33877200E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			productRefGroup = D70DF7E12A31DE8B001B98E5 /* Products */;
 			projectDirPath = "";
@@ -223,16 +295,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D70DF7E62A31DE8B001B98E5 /* ContentView.swift in Sources */,
+				D7C2DD672A337EB000E6CEAD /* KeychainStorage.swift in Sources */,
+				D766A3E22A321D2E004E17FF /* ErrorMessages.swift in Sources */,
+				D70DF7E62A31DE8B001B98E5 /* AuthView.swift in Sources */,
 				D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */,
+				D766A3DE2A321341004E17FF /* SquaredButton.swift in Sources */,
 				D787665E2A31E01D002B9717 /* NotFoundError.swift in Sources */,
+				D7F7465D2A31FB4100E6D06D /* ViewModifiers.swift in Sources */,
 				D78766632A31E04C002B9717 /* AuthData.swift in Sources */,
 				D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */,
-				D7C2DD602A335BDC00E6CEAD /* KeychainStorage.swift in Sources */,
+				D766A3E42A324BC6004E17FF /* SuccessfulResponses.swift in Sources */,
 				D787666E2A31E0E5002B9717 /* NetworkProtocol.swift in Sources */,
 				D787665D2A31E01D002B9717 /* UnauthorisedError.swift in Sources */,
+				D7F746592A31EA9600E6D06D /* AuthViewModel.swift in Sources */,
 				D78766712A31E186002B9717 /* NetworkMonitor.swift in Sources */,
 				D70DF7E42A31DE8B001B98E5 /* ChatsApp.swift in Sources */,
+				D766A3EA2A325524004E17FF /* AuthService.swift in Sources */,
+				D766A3E62A324C67004E17FF /* Decoder.swift in Sources */,
 				D78766602A31E01D002B9717 /* ServerError.swift in Sources */,
 				D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */,
 			);
@@ -291,7 +370,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -345,7 +424,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -366,11 +445,12 @@
 				DEVELOPMENT_TEAM = 95D5HHTHLU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = Chats/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -378,9 +458,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = MichailDev.Chats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -395,11 +478,12 @@
 				DEVELOPMENT_TEAM = 95D5HHTHLU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = Chats/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -407,9 +491,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = MichailDev.Chats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -437,20 +524,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D7C2DD5B2A3355BB00E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+		D7C2DD682A33877200E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				branch = develop;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D7C2DD5C2A3355BB00E6CEAD /* SwiftKeychainWrapper */ = {
+		D7C2DD692A33877200E6CEAD /* SwiftKeychainWrapper */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D7C2DD5B2A3355BB00E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			package = D7C2DD682A33877200E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
 			productName = SwiftKeychainWrapper;
 		};
 /* End XCSwiftPackageProductDependency section */

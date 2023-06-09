@@ -28,7 +28,7 @@ extension Endpoint {
 				case .sendAuthCode:
 					return "/api/v1/users/send-auth-code/"
 				case .checkAuthCode:
-				return "api/v1/users/check-auth-code/"
+				return "/api/v1/users/check-auth-code/"
 				case .register:
 					 return "/api/v1/users/register/"
 				case .userInfo:
