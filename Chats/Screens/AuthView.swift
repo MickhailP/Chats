@@ -49,6 +49,17 @@ struct AuthView: View {
 		  .onTapGesture {
 				focusField = .none
 		  }
+		  .overlay(alignment: .bottom) {
+				Button {
+					 withAnimation {
+						  viewModel.sendToRegistration()
+					 }
+				} label: {
+					 Text("Don't have an account? Create one.")
+						  .fontWeight(.bold)
+				}
+				.tint(.white)
+		  }
 		  .padding()
 		  .background(
 				LinearGradient(gradient: Gradient(colors: [.cyan, .blue]), startPoint: .top, endPoint: .bottom)
@@ -94,6 +105,7 @@ extension AuthView {
 					 TextField("000", text: $viewModel.countryMask)
 						  .frame(maxWidth: 60)
 						  .keyboardType(.phonePad)
+						  .multilineTextAlignment(.trailing)
 						  .focused($focusField, equals: .mask)
 
 				}
@@ -116,8 +128,10 @@ extension AuthView {
 		  if !viewModel.verificationRequested {
 				Button {
 					 if !viewModel.isLoading {
-						  viewModel.requestVerificationCode(for: viewModel.phoneNumber)
-						  focusField = .code
+						  withAnimation {
+								viewModel.requestVerificationCode(for: viewModel.phoneNumber)
+								focusField = .code
+						  }
 					 }
 				} label: {
 					 Text("Send verification code")
@@ -130,8 +144,10 @@ extension AuthView {
 		  } else {
 				Button {
 					 if !viewModel.isLoading {
-						  viewModel.authorise()
-						  focusField = .none
+						  withAnimation {
+								viewModel.authorise()
+								focusField = .none
+						  }
 					 }
 				} label: {
 					 Text("Authorise")

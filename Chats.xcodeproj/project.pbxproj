@@ -25,6 +25,8 @@
 		D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666D2A31E0E5002B9717 /* NetworkService.swift */; };
 		D78766712A31E186002B9717 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766702A31E185002B9717 /* NetworkMonitor.swift */; };
 		D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B99B732A32E9BC00992624 /* Endpoints.swift */; };
+		D7C2DD672A337EB000E6CEAD /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */; };
+		D7C2DD6A2A33877200E6CEAD /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = D7C2DD692A33877200E6CEAD /* SwiftKeychainWrapper */; };
 		D7F746592A31EA9600E6D06D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F746582A31EA9600E6D06D /* AuthViewModel.swift */; };
 		D7F7465D2A31FB4100E6D06D /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +52,7 @@
 		D78766702A31E185002B9717 /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		D7B99B732A32E9BC00992624 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		D7B99B752A330EBB00992624 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
 		D7F746582A31EA9600E6D06D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7C2DD5D2A3355BB00E6CEAD /* SwiftKeychainWrapper in Frameworks */,
+				D7C2DD6A2A33877200E6CEAD /* SwiftKeychainWrapper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,7 +168,7 @@
 			children = (
 				D766A3E82A32550F004E17FF /* AuthService */,
 				D787666B2A31E0D1002B9717 /* Networking */,
-				D7C2DD5E2A335BC000E6CEAD /* DataStorage */,
+				D7C2DD652A337EB000E6CEAD /* DataStorage */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -179,6 +182,15 @@
 				D7B99B732A32E9BC00992624 /* Endpoints.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		D7C2DD652A337EB000E6CEAD /* DataStorage */ = {
+			isa = PBXGroup;
+			children = (
+				D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */,
+			);
+			name = DataStorage;
+			path = ../DataStorage;
 			sourceTree = "<group>";
 		};
 		D7F746552A31E9C900E6D06D /* Screens */ = {
@@ -223,6 +235,9 @@
 			dependencies = (
 			);
 			name = Chats;
+			packageProductDependencies = (
+				D7C2DD692A33877200E6CEAD /* SwiftKeychainWrapper */,
+			);
 			productName = Chats;
 			productReference = D70DF7E02A31DE8B001B98E5 /* Chats.app */;
 			productType = "com.apple.product-type.application";
@@ -252,7 +267,7 @@
 			);
 			mainGroup = D70DF7D72A31DE8B001B98E5;
 			packageReferences = (
-				D7C2DD5B2A3355BB00E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				D7C2DD682A33877200E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			productRefGroup = D70DF7E12A31DE8B001B98E5 /* Products */;
 			projectDirPath = "";
@@ -280,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7C2DD672A337EB000E6CEAD /* KeychainStorage.swift in Sources */,
 				D766A3E22A321D2E004E17FF /* ErrorMessages.swift in Sources */,
 				D70DF7E62A31DE8B001B98E5 /* AuthView.swift in Sources */,
 				D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */,
@@ -508,20 +524,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D7C2DD5B2A3355BB00E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+		D7C2DD682A33877200E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				branch = develop;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D7C2DD5C2A3355BB00E6CEAD /* SwiftKeychainWrapper */ = {
+		D7C2DD692A33877200E6CEAD /* SwiftKeychainWrapper */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D7C2DD5B2A3355BB00E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			package = D7C2DD682A33877200E6CEAD /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
 			productName = SwiftKeychainWrapper;
 		};
 /* End XCSwiftPackageProductDependency section */

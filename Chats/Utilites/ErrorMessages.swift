@@ -19,6 +19,7 @@ enum ErrorMessage: String, Error {
 	 case decodingError = "Decoding error"
 
 	 case unableFetchFromDataBase = "Failed to load data from storage."
+	 case authDataIsMissing = "Failed to load auth data"
 
 	 case unknown = "Unknown error"
 }
