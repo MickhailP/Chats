@@ -16,9 +16,8 @@ protocol AuthenticationProtocol: AnyObject {
 
 	 func verify(phoneNumber: String) async throws
 	 func authoriseUser(phoneNumber: String, verificationCode: String) async throws
+	 func register(_ user: User) async throws
 }
-
-
 
 
 final class AuthService: AuthenticationProtocol, ObservableObject {
@@ -96,29 +95,64 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 
 		  switch result {
 				case .success(let data):
-					 if let decoded: AuthData = Decoder.decode(data) {
-						  await MainActor.run {
-
-								if decoded.isUserExists {
-									 //AUTHORISE HERE
-									 KeychainStorage.saveCredentials(decoded)
-									 authData = decoded
-									 isAuthorized = true
-
-								} else {
-									 //GO TO Registration
-									 shouldRegister = true
-									 
-								}
-						  }
-					 } else {
+					 guard let authData: AuthData = Decoder.decode(data) else {
 						  throw ErrorMessage.decodingError
 					 }
-				case .failure(let failure):
-					 throw failure
+
+					 await MainActor.run {
+						  if let isUserExist = authData.isUserExists,
+								isUserExist == true {
+								handleAuthData(authData)
+						  } else {
+								shouldRegister = true
+						  }
+					 }
+				case .failure(let error):
+					 throw error
 		  }
 	 }
 
+
+	 func register(_ user: User) async throws {
+		  guard let url = Endpoint.register.url else {
+				throw ErrorMessage.badURl
+		  }
+
+		  let json = """
+				{
+				"phone": "\(user.phone)",
+				"name": "\(user.name)",
+				"username": "\(user.username)"
+				}
+				"""
+
+		  guard let request = configureTokenFreeRequest(httpMethod: "POST", url: url, json: json) else {
+				throw ErrorMessage.barRequest
+		  }
+
+		  let result = await networkingService.downloadDataResult(for: request)
+
+		  switch result {
+				case .success(let data):
+					 guard let authData: AuthData = Decoder.decode(data) else {
+						  throw ErrorMessage.decodingError
+					 }
+
+					 await MainActor.run {
+						  handleAuthData(authData)
+					 }
+				case .failure(let error):
+					 throw error
+		  }
+	 }
+
+
+	 private func handleAuthData(_ data: AuthData) {
+		  KeychainStorage.saveCredentials(data)
+		  authData = data
+		  isAuthorized = true
+		  print(authData)
+	 }
 
 
 	 private func configureTokenFreeRequest(httpMethod: String, url: URL, json: String ) -> URLRequest? {
