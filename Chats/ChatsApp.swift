@@ -13,7 +13,7 @@ struct ChatsApp: App {
 
     var body: some Scene {
         WindowGroup {
-				AuthView(viewModel: AuthViewModel(authService: authenticationService))
+				AuthView(viewModel: AuthViewModel(authService: authenticationService, regionCodeService: RegionCodesService()))
         }
     }
 }
