@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 class Decoder {
 
 	class func decode<T: Decodable> (_ data: Data) -> T? {
