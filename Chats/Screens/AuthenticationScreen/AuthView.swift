@@ -65,6 +65,20 @@ struct AuthView: View {
 				LinearGradient(gradient: Gradient(colors: [.cyan, .blue]), startPoint: .top, endPoint: .bottom)
 					 .edgesIgnoringSafeArea(.all)
 		  )
+		  .confirmationDialog("Select country", isPresented: $viewModel.showCountriesVariants, actions: {
+				ForEach(Array(viewModel.countriesVariants.keys), id: \.self) { country in
+					 Button {
+						  viewModel.changeMaskAndCode(for: country)
+						  
+					 } label: {
+						  if let countryData = viewModel.getCountryData(for: country) {
+								Text("\(countryData.name) \(countryData.flag)  \(countryData.mask)")
+						  }
+					 }
+				}
+		  }, message: {
+				Text("Seems there are some duplicates with your country code. Please, select one.")
+		  })
 		  .alert(isPresented: $viewModel.showError) {
 				Alert(title: Text("Error"), message: Text(viewModel.errorMessage))
 		  }
@@ -92,15 +106,18 @@ extension AuthView {
 		  HStack {
 				HStack {
 					 Menu(viewModel.countryNameAndFlag) {
-						  ForEach(0..<100, id: \.self) { _  in
+						  ForEach(Array(viewModel.countries.keys), id: \.self) { countryCode in
 								Button {
-									 viewModel.changeMaskAndCode(for: "RU 🇷🇺")
+									 viewModel.changeMaskAndCode(for: countryCode)
 								} label: {
 									 //CHANGE TO COUNTRY DATA
-									 Text("RU 🇷🇺 +7")
+									 if let countryData = viewModel.getCountryData(for: countryCode) {
+										  Text("\(countryData.name) \(countryData.flag)  \(countryData.mask)")
+									 }
 								}
 						  }
 					 }
+
 					 Text("+")
 					 TextField("000", text: $viewModel.countryMask)
 						  .frame(maxWidth: 60)
@@ -166,6 +183,6 @@ struct ContentView_Previews: PreviewProvider {
 	 static var previews: some View {
 		  let network = NetworkService()
 		  let authService = AuthService(networkingService: network)
-		  AuthView(viewModel: AuthViewModel(authService: authService))
+		  AuthView(viewModel: AuthViewModel(authService: authService, regionCodeService: RegionCodesService()))
 	 }
 }

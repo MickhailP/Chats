@@ -6,14 +6,17 @@
 //
 
 import Foundation
-
+import Combine
 
 final class AuthViewModel: ObservableObject {
 
 	 let authService: AuthenticationProtocol
+	 let regionCodeService: RegionCodesService
 
+	 @Published var countries: [String: String]
 	 @Published var countryNameAndFlag = "RU 🇷🇺"
 	 @Published var countryMask = ""
+
 	 @Published var phoneNumber = ""
 	 @Published var verificationCode = ""
 
@@ -23,6 +26,10 @@ final class AuthViewModel: ObservableObject {
 
 	 @Published var showError = false
 	 @Published private(set) var errorMessage = ""
+
+	 @Published var showCountriesVariants = false
+	 @Published private(set) var countriesVariants: [String: String] = [:]
+	 
 
 	 var formattedNumber: String? {
 		  if let phoneNumber = Int(phoneNumber), let countryMask = Int(countryMask) {
@@ -34,13 +41,16 @@ final class AuthViewModel: ObservableObject {
 		  }
 	 }
 
-	 
-	 init(authService: AuthenticationProtocol) {
-		  self.authService = authService
+	 var cancellables = Set<AnyCancellable>()
 
-		  if let regionCode = Locale.current.regionCode {
-				countryNameAndFlag = regionCode
-		  }
+	 
+	 init(authService: AuthenticationProtocol, regionCodeService: RegionCodesService) {
+		  self.authService = authService
+		  self.regionCodeService = regionCodeService
+		  countries = regionCodeService.countryCodes
+
+		  setLocalCountry()
+		  subscribeOnCountryMask()
 	 }
 
 	 func requestVerificationCode(for number: String) {
@@ -127,27 +137,60 @@ final class AuthViewModel: ObservableObject {
 	 }
 
 
-	 func saveAuthorizationData() {
-
-	 }
-
 	 func sendToRegistration() {
 		  authService.shouldRegister = true
 	 }
 
-	 func countryName(countryCode: String) -> String? {
-		  let current = Locale(identifier: "en_US")
-		  return current.localizedString(forRegionCode: countryCode)
+
+	 func changeMaskAndCode(for key: String) {
+		  if let countryData = getCountryData(for: key) {
+				countryNameAndFlag = "\(countryData.name) \(countryData.flag)"
+				countryMask = countryData.mask
+		  }
 	 }
 
-	 func changeMaskAndCode(for flag: String) {
-		  countryNameAndFlag = flag
+
+	 func getCountryData(for key: String) -> (name: String, flag: String, mask: String)? {
+		  if let flag = regionCodeService.countryCodeToFlag(key),
+			  let mask = countries[key] {
+				 return  (key, flag, mask)
+		  }
+		  return nil
 	 }
+
 
 	 func resetUI() {
 		  // CANCEL REQUEST
-
 		  verificationRequested = false
 		  verificationCode = ""
+	 }
+
+	 func setLocalCountry() {
+		  if let regionCode = Locale.current.regionCode {
+				changeMaskAndCode(for: regionCode)
+		  }
+	 }
+
+	 func subscribeOnCountryMask() {
+		  $countryMask
+				.dropFirst(1)
+				.debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+				.sink { [weak self ] countryMask in
+					 guard let self = self else { return }
+
+					 let filteredCountries = self.countries.filter({ $0.value == countryMask })
+
+					 if filteredCountries.count > 1 {
+								self.showCountriesVariants = true
+								self.countriesVariants = filteredCountries
+					 } else {
+						  guard let key = self.countries.first(where: { $0.value == countryMask })?.key else {
+								return
+						  }
+
+						  self.changeMaskAndCode(for: key)
+					 }
+				}
+				.store(in: &cancellables)
 	 }
 }

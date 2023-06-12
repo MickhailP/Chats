@@ -27,6 +27,7 @@
 		D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B99B732A32E9BC00992624 /* Endpoints.swift */; };
 		D7C2DD672A337EB000E6CEAD /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */; };
 		D7C2DD6A2A33877200E6CEAD /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = D7C2DD692A33877200E6CEAD /* SwiftKeychainWrapper */; };
+		D7C2DD6F2A33BBEF00E6CEAD /* RegionCodesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2DD6E2A33BBEF00E6CEAD /* RegionCodesService.swift */; };
 		D7F746592A31EA9600E6D06D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F746582A31EA9600E6D06D /* AuthViewModel.swift */; };
 		D7F7465D2A31FB4100E6D06D /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */; };
 /* End PBXBuildFile section */
@@ -53,6 +54,7 @@
 		D7B99B732A32E9BC00992624 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		D7B99B752A330EBB00992624 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
+		D7C2DD6E2A33BBEF00E6CEAD /* RegionCodesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionCodesService.swift; sourceTree = "<group>"; };
 		D7F746582A31EA9600E6D06D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +168,7 @@
 		D787666A2A31E0C6002B9717 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D7C2DD6D2A33BBB300E6CEAD /* RegionCodesService */,
 				D766A3E82A32550F004E17FF /* AuthService */,
 				D787666B2A31E0D1002B9717 /* Networking */,
 				D7C2DD652A337EB000E6CEAD /* DataStorage */,
@@ -193,11 +196,27 @@
 			path = ../DataStorage;
 			sourceTree = "<group>";
 		};
-		D7F746552A31E9C900E6D06D /* Screens */ = {
+		D7C2DD6C2A33BB7400E6CEAD /* AuthenticationScreen */ = {
 			isa = PBXGroup;
 			children = (
 				D70DF7E52A31DE8B001B98E5 /* AuthView.swift */,
 				D7F746582A31EA9600E6D06D /* AuthViewModel.swift */,
+			);
+			path = AuthenticationScreen;
+			sourceTree = "<group>";
+		};
+		D7C2DD6D2A33BBB300E6CEAD /* RegionCodesService */ = {
+			isa = PBXGroup;
+			children = (
+				D7C2DD6E2A33BBEF00E6CEAD /* RegionCodesService.swift */,
+			);
+			path = RegionCodesService;
+			sourceTree = "<group>";
+		};
+		D7F746552A31E9C900E6D06D /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				D7C2DD6C2A33BB7400E6CEAD /* AuthenticationScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -297,6 +316,7 @@
 			files = (
 				D7C2DD672A337EB000E6CEAD /* KeychainStorage.swift in Sources */,
 				D766A3E22A321D2E004E17FF /* ErrorMessages.swift in Sources */,
+				D7C2DD6F2A33BBEF00E6CEAD /* RegionCodesService.swift in Sources */,
 				D70DF7E62A31DE8B001B98E5 /* AuthView.swift in Sources */,
 				D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */,
 				D766A3DE2A321341004E17FF /* SquaredButton.swift in Sources */,
