@@ -9,11 +9,17 @@ import SwiftUI
 
 struct MainAppView: View {
 
-	 @EnvironmentObject var authenticationService: AuthService
-
     var body: some View {
-		  HStack {
-				
+		  TabView {
+				ChatsView()
+					 .tabItem {
+						  Label("Chats", systemImage: "message")
+					 }
+				ProfileView()
+					 .tabItem {
+						  Label("Profile", systemImage: "person.circle")
+					 }
+
 		  }
     }
 }

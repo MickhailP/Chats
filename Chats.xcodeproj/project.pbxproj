@@ -30,6 +30,8 @@
 		D79AC9FD2A374DD700E3C3E5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AC9FC2A374DD700E3C3E5 /* User.swift */; };
 		D79ACA022A383BE900E3C3E5 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79ACA012A383BE900E3C3E5 /* Gradients.swift */; };
 		D79ACA042A38C48600E3C3E5 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79ACA032A38C48600E3C3E5 /* MainAppView.swift */; };
+		D79ACA0A2A38E4B900E3C3E5 /* ChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79ACA092A38E4B900E3C3E5 /* ChatsView.swift */; };
+		D79ACA0C2A38E4C600E3C3E5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79ACA0B2A38E4C600E3C3E5 /* ProfileView.swift */; };
 		D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B99B732A32E9BC00992624 /* Endpoints.swift */; };
 		D7C2DD672A337EB000E6CEAD /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */; };
 		D7C2DD6A2A33877200E6CEAD /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = D7C2DD692A33877200E6CEAD /* SwiftKeychainWrapper */; };
@@ -63,6 +65,8 @@
 		D79AC9FC2A374DD700E3C3E5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D79ACA012A383BE900E3C3E5 /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
 		D79ACA032A38C48600E3C3E5 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
+		D79ACA092A38E4B900E3C3E5 /* ChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsView.swift; sourceTree = "<group>"; };
+		D79ACA0B2A38E4C600E3C3E5 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D7B99B732A32E9BC00992624 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		D7B99B752A330EBB00992624 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
@@ -242,6 +246,32 @@
 			path = Gradients;
 			sourceTree = "<group>";
 		};
+		D79ACA052A38E46F00E3C3E5 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				D79ACA032A38C48600E3C3E5 /* MainAppView.swift */,
+				D79ACA062A38E47F00E3C3E5 /* Chats */,
+				D79ACA082A38E49600E3C3E5 /* Profile */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		D79ACA062A38E47F00E3C3E5 /* Chats */ = {
+			isa = PBXGroup;
+			children = (
+				D79ACA092A38E4B900E3C3E5 /* ChatsView.swift */,
+			);
+			path = Chats;
+			sourceTree = "<group>";
+		};
+		D79ACA082A38E49600E3C3E5 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				D79ACA0B2A38E4C600E3C3E5 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		D7C2DD652A337EB000E6CEAD /* DataStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,7 +303,7 @@
 			children = (
 				D7C2DD6C2A33BB7400E6CEAD /* AuthenticationScreen */,
 				D79AC9F22A374A1900E3C3E5 /* Registration */,
-				D79ACA032A38C48600E3C3E5 /* MainAppView.swift */,
+				D79ACA052A38E46F00E3C3E5 /* MainView */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -384,9 +414,11 @@
 				D787665E2A31E01D002B9717 /* NotFoundError.swift in Sources */,
 				D7F7465D2A31FB4100E6D06D /* ViewModifiers.swift in Sources */,
 				D78766632A31E04C002B9717 /* AuthData.swift in Sources */,
+				D79ACA0C2A38E4C600E3C3E5 /* ProfileView.swift in Sources */,
 				D79AC9F92A374B0F00E3C3E5 /* StringExt.swift in Sources */,
 				D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */,
 				D766A3E42A324BC6004E17FF /* SuccessfulResponses.swift in Sources */,
+				D79ACA0A2A38E4B900E3C3E5 /* ChatsView.swift in Sources */,
 				D787666E2A31E0E5002B9717 /* NetworkProtocol.swift in Sources */,
 				D787665D2A31E01D002B9717 /* UnauthorisedError.swift in Sources */,
 				D7F746592A31EA9600E6D06D /* AuthViewModel.swift in Sources */,
