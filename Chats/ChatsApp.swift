@@ -9,11 +9,25 @@ import SwiftUI
 
 @main
 struct ChatsApp: App {
+	 
 	 @StateObject var authenticationService = AuthService(networkingService: NetworkService())
 
     var body: some Scene {
-        WindowGroup {
-				AuthView(viewModel: AuthViewModel(authService: authenticationService, regionCodeService: RegionCodesService()))
-        }
+		  WindowGroup {
+				ZStack {
+					 switch authenticationService.authState {
+						  case .auth:
+								AuthView(viewModel: AuthViewModel(authService: authenticationService, regionCodeService: RegionCodesService()))
+									 .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
+						  case .registration:
+								RegistrationView(viewModel: RegistrationViewModel(authService: authenticationService, phoneNumber: authenticationService.phoneNumber))
+									 .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
+						  case .authenticated:
+								MainAppView()
+									 .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
+					 }
+				}
+				.animation(.easeInOut, value: authenticationService.authState)
+		  }
     }
 }
