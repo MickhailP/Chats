@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import UIKit
+
 
 final class NetworkService: NetworkProtocol {
-
+	 
 	 func downloadDataResult(for request: URLRequest) async -> Result<Data, Error> {
 		  do {
 				let (data, response) = try await URLSession.shared.data(for: request)
@@ -17,6 +19,24 @@ final class NetworkService: NetworkProtocol {
 		  } catch {
 				print("There was an error during data fetching! ", error.localizedDescription)
 				return .failure(error)
+		  }
+	 }
+	 
+	 
+	 func fetchImage(from urlString: String) async -> UIImage? {
+		  
+		  guard let url = URL(string: urlString) else {
+				return nil
+		  }
+		  
+		  do {
+				let (data, response) = try await URLSession.shared.data(from: url)
+				try handleResponse(response)
+				return UIImage(data: data)
+				
+		  } catch {
+				print("There was an error! ", error.localizedDescription)
+				return nil
 		  }
 	 }
 }
