@@ -29,6 +29,7 @@
 		D79AC9F92A374B0F00E3C3E5 /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AC9F82A374B0F00E3C3E5 /* StringExt.swift */; };
 		D79AC9FD2A374DD700E3C3E5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AC9FC2A374DD700E3C3E5 /* User.swift */; };
 		D79ACA022A383BE900E3C3E5 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79ACA012A383BE900E3C3E5 /* Gradients.swift */; };
+		D79ACA042A38C48600E3C3E5 /* MainAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79ACA032A38C48600E3C3E5 /* MainAppView.swift */; };
 		D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B99B732A32E9BC00992624 /* Endpoints.swift */; };
 		D7C2DD672A337EB000E6CEAD /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */; };
 		D7C2DD6A2A33877200E6CEAD /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = D7C2DD692A33877200E6CEAD /* SwiftKeychainWrapper */; };
@@ -61,6 +62,7 @@
 		D79AC9F82A374B0F00E3C3E5 /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
 		D79AC9FC2A374DD700E3C3E5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D79ACA012A383BE900E3C3E5 /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
+		D79ACA032A38C48600E3C3E5 /* MainAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppView.swift; sourceTree = "<group>"; };
 		D7B99B732A32E9BC00992624 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		D7B99B752A330EBB00992624 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			children = (
 				D7C2DD6C2A33BB7400E6CEAD /* AuthenticationScreen */,
 				D79AC9F22A374A1900E3C3E5 /* Registration */,
+				D79ACA032A38C48600E3C3E5 /* MainAppView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				D766A3E22A321D2E004E17FF /* ErrorMessages.swift in Sources */,
 				D7C2DD6F2A33BBEF00E6CEAD /* RegionCodesService.swift in Sources */,
 				D79AC9F42A374A4300E3C3E5 /* RegistrationView.swift in Sources */,
+				D79ACA042A38C48600E3C3E5 /* MainAppView.swift in Sources */,
 				D70DF7E62A31DE8B001B98E5 /* AuthView.swift in Sources */,
 				D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */,
 				D766A3DE2A321341004E17FF /* SquaredButton.swift in Sources */,

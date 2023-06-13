@@ -8,11 +8,12 @@
 import Foundation
 import Combine
 
+
 final class RegistrationViewModel: ObservableObject {
 
 	 let authService: AuthenticationProtocol
 
-	 let phoneNumber: String
+	 let phoneNumber: String?
 	 @Published var name = ""
 	 @Published var username = ""
 
@@ -25,7 +26,7 @@ final class RegistrationViewModel: ObservableObject {
 	 var cancellables = Set<AnyCancellable>()
 
 
-	 init(authService: AuthenticationProtocol, phoneNumber: String) {
+	 init(authService: AuthenticationProtocol, phoneNumber: String?) {
 		  self.authService = authService
 		  self.phoneNumber = phoneNumber
 		  subscribeOnUsername()
@@ -34,6 +35,10 @@ final class RegistrationViewModel: ObservableObject {
 
 	 func registerPressed() {
 		  isRegistering = true
+
+		  guard let phoneNumber else {
+				return
+		  }
 
 		  let user = User(phone: phoneNumber, name: name, username: username)
 

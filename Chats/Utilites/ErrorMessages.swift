@@ -13,7 +13,8 @@ enum ErrorMessage: String, Error {
 	 case invalidData = "Data is missing"
 	 case barRequest = "Request is not correct"
 
-	 case verificationCodeError = "Code wasn't received"
+	 case verificationError = "Phone number didn't verified"
+	 case phoneNumberMissing = "Phone number is missed"
 
 	 case encodingError = "Encoding error"
 	 case decodingError = "Decoding error"

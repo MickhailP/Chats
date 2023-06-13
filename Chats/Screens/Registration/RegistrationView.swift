@@ -79,7 +79,7 @@ extension RegistrationView {
 					 HStack {
 						  Image(systemName: "iphone.gen2")
 
-						  Text(viewModel.phoneNumber)
+						  Text(viewModel.phoneNumber ?? "NA")
 						  Spacer()
 					 }
 					 .padding()

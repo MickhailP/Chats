@@ -11,8 +11,9 @@ import Combine
 
 protocol AuthenticationProtocol: AnyObject {
 	 var networkingService: NetworkProtocol { get }
-	 var isAuthorized: Bool { get }
+	 var isVerified: Bool { get }
 	 var shouldRegister: Bool { get set }
+
 
 	 func verify(phoneNumber: String) async throws
 	 func authoriseUser(phoneNumber: String, verificationCode: String) async throws
@@ -22,17 +23,23 @@ protocol AuthenticationProtocol: AnyObject {
 
 final class AuthService: AuthenticationProtocol, ObservableObject {
 
+	 enum AuthState {
+		  case auth, registration, authenticated
+	 }
+
+	 @Published var authState: AuthState = .auth
+
 	 let networkingService: NetworkProtocol
 
 	 @Published var verificationCode: Int?
-	 @Published var isUserExist:Bool?
+	 @Published var phoneNumber: String?  
 
 	 @Published var authData: AuthData?
 
 	 @Published private (set) var isVerified = false
-	 @Published private (set) var isAuthorized = false
 	 @Published var shouldRegister = false
 
+	 
 	 init(networkingService: NetworkProtocol) {
 		  self.networkingService = networkingService
 	 }
@@ -65,8 +72,6 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 					 await MainActor.run {
 						  if decoded.isSuccess {
 								isVerified = true
-						  } else {
-								isVerified = false
 						  }
 					 }
 
@@ -76,6 +81,10 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 	 }
 
 	 func authoriseUser(phoneNumber: String, verificationCode: String) async throws {
+		  await MainActor.run {
+				self.phoneNumber = phoneNumber
+		  }
+		  
 		  guard let url = Endpoint.checkAuthCode.url else {
 				throw ErrorMessage.badURl
 		  }
@@ -99,12 +108,14 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 						  throw ErrorMessage.decodingError
 					 }
 
+					 print(authData)
 					 await MainActor.run {
-						  if let isUserExist = authData.isUserExists,
-								isUserExist == true {
-								handleAuthData(authData)
-						  } else {
-								shouldRegister = true
+						  if let isUserExist = authData.isUserExists {
+								if isUserExist == true {
+									 handleAuthData(authData)
+								} else {
+									 authState = .registration
+								}
 						  }
 					 }
 				case .failure(let error):
@@ -114,6 +125,7 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 
 
 	 func register(_ user: User) async throws {
+
 		  guard let url = Endpoint.register.url else {
 				throw ErrorMessage.badURl
 		  }
@@ -150,8 +162,7 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 	 private func handleAuthData(_ data: AuthData) {
 		  KeychainStorage.saveCredentials(data)
 		  authData = data
-		  isAuthorized = true
-		  print(authData)
+		  authState = .authenticated
 	 }
 
 
