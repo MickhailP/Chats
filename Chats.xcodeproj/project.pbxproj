@@ -24,6 +24,11 @@
 		D787666E2A31E0E5002B9717 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */; };
 		D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787666D2A31E0E5002B9717 /* NetworkService.swift */; };
 		D78766712A31E186002B9717 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78766702A31E185002B9717 /* NetworkMonitor.swift */; };
+		D79AC9F42A374A4300E3C3E5 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AC9F32A374A4300E3C3E5 /* RegistrationView.swift */; };
+		D79AC9F62A374A5000E3C3E5 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AC9F52A374A5000E3C3E5 /* RegistrationViewModel.swift */; };
+		D79AC9F92A374B0F00E3C3E5 /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AC9F82A374B0F00E3C3E5 /* StringExt.swift */; };
+		D79AC9FD2A374DD700E3C3E5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AC9FC2A374DD700E3C3E5 /* User.swift */; };
+		D79ACA022A383BE900E3C3E5 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79ACA012A383BE900E3C3E5 /* Gradients.swift */; };
 		D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B99B732A32E9BC00992624 /* Endpoints.swift */; };
 		D7C2DD672A337EB000E6CEAD /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */; };
 		D7C2DD6A2A33877200E6CEAD /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = D7C2DD692A33877200E6CEAD /* SwiftKeychainWrapper */; };
@@ -51,6 +56,11 @@
 		D787666C2A31E0E5002B9717 /* NetworkProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		D787666D2A31E0E5002B9717 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		D78766702A31E185002B9717 /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		D79AC9F32A374A4300E3C3E5 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		D79AC9F52A374A5000E3C3E5 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		D79AC9F82A374B0F00E3C3E5 /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
+		D79AC9FC2A374DD700E3C3E5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D79ACA012A383BE900E3C3E5 /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
 		D7B99B732A32E9BC00992624 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		D7B99B752A330EBB00992624 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
@@ -122,6 +132,7 @@
 		D766A3E02A321D15004E17FF /* Utilites */ = {
 			isa = PBXGroup;
 			children = (
+				D79AC9F72A374AFC00E3C3E5 /* Extension */,
 				D766A3E12A321D2E004E17FF /* ErrorMessages.swift */,
 				D766A3E52A324C67004E17FF /* Decoder.swift */,
 			);
@@ -139,7 +150,8 @@
 		D78766572A31DFF7002B9717 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D766A3E32A324BC6004E17FF /* SuccessfulResponses.swift */,
+				D79AC9FB2A374DCC00E3C3E5 /* User */,
+				D79AC9FA2A374DC100E3C3E5 /* Responses */,
 				D78766612A31E04C002B9717 /* AuthData */,
 				D78766582A31E003002B9717 /* ServerError */,
 			);
@@ -187,6 +199,47 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		D79AC9F22A374A1900E3C3E5 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				D79AC9F32A374A4300E3C3E5 /* RegistrationView.swift */,
+				D79AC9F52A374A5000E3C3E5 /* RegistrationViewModel.swift */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		D79AC9F72A374AFC00E3C3E5 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D79AC9F82A374B0F00E3C3E5 /* StringExt.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		D79AC9FA2A374DC100E3C3E5 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				D766A3E32A324BC6004E17FF /* SuccessfulResponses.swift */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		D79AC9FB2A374DCC00E3C3E5 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				D79AC9FC2A374DD700E3C3E5 /* User.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		D79ACA002A383BD100E3C3E5 /* Gradients */ = {
+			isa = PBXGroup;
+			children = (
+				D79ACA012A383BE900E3C3E5 /* Gradients.swift */,
+			);
+			path = Gradients;
+			sourceTree = "<group>";
+		};
 		D7C2DD652A337EB000E6CEAD /* DataStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				D7C2DD6C2A33BB7400E6CEAD /* AuthenticationScreen */,
+				D79AC9F22A374A1900E3C3E5 /* Registration */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -224,6 +278,7 @@
 		D7F7465A2A31FB0A00E6D06D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				D79ACA002A383BD100E3C3E5 /* Gradients */,
 				D7F7465B2A31FB1C00E6D06D /* ViewModifiers */,
 				D766A3DF2A32134A004E17FF /* Buttons */,
 			);
@@ -315,14 +370,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7C2DD672A337EB000E6CEAD /* KeychainStorage.swift in Sources */,
+				D79AC9F62A374A5000E3C3E5 /* RegistrationViewModel.swift in Sources */,
 				D766A3E22A321D2E004E17FF /* ErrorMessages.swift in Sources */,
 				D7C2DD6F2A33BBEF00E6CEAD /* RegionCodesService.swift in Sources */,
+				D79AC9F42A374A4300E3C3E5 /* RegistrationView.swift in Sources */,
 				D70DF7E62A31DE8B001B98E5 /* AuthView.swift in Sources */,
 				D787665F2A31E01D002B9717 /* ValidationError.swift in Sources */,
 				D766A3DE2A321341004E17FF /* SquaredButton.swift in Sources */,
 				D787665E2A31E01D002B9717 /* NotFoundError.swift in Sources */,
 				D7F7465D2A31FB4100E6D06D /* ViewModifiers.swift in Sources */,
 				D78766632A31E04C002B9717 /* AuthData.swift in Sources */,
+				D79AC9F92A374B0F00E3C3E5 /* StringExt.swift in Sources */,
 				D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */,
 				D766A3E42A324BC6004E17FF /* SuccessfulResponses.swift in Sources */,
 				D787666E2A31E0E5002B9717 /* NetworkProtocol.swift in Sources */,
@@ -331,6 +389,8 @@
 				D78766712A31E186002B9717 /* NetworkMonitor.swift in Sources */,
 				D70DF7E42A31DE8B001B98E5 /* ChatsApp.swift in Sources */,
 				D766A3EA2A325524004E17FF /* AuthService.swift in Sources */,
+				D79AC9FD2A374DD700E3C3E5 /* User.swift in Sources */,
+				D79ACA022A383BE900E3C3E5 /* Gradients.swift in Sources */,
 				D766A3E62A324C67004E17FF /* Decoder.swift in Sources */,
 				D78766602A31E01D002B9717 /* ServerError.swift in Sources */,
 				D7B99B742A32E9BC00992624 /* Endpoints.swift in Sources */,

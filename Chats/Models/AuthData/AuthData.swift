@@ -10,7 +10,7 @@ import Foundation
 struct AuthData: Codable {
 	 let refreshToken, accessToken: String?
 	 let userID: Int?
-	 let isUserExists: Bool
+	 let isUserExists: Bool?
 
 	 enum CodingKeys: String, CodingKey {
 		  case refreshToken
