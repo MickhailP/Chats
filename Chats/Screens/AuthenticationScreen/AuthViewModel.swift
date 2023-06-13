@@ -97,41 +97,45 @@ final class AuthViewModel: ObservableObject {
 	 func authorise() {
 		  isLoading = true
 
-		  guard let formattedNumber else {
-				showError.toggle()
-				errorMessage = "Phone number is empty!"
-				isLoading = false
-				return
-		  }
+		  if authService.isVerified {
 
-		  print(formattedNumber + verificationCode)
 
-		  Task {
-				do {
-					 try await authService.authoriseUser(phoneNumber: formattedNumber, verificationCode: verificationCode)
-				}
-				catch let error as ErrorMessage {
-					 await MainActor.run {
-						  showError = true
-						  errorMessage = error.rawValue
-					 }
-				}
-				catch let error as NotFoundError {
-					 await MainActor.run {
-						  showError = true
-						  errorMessage = error.detail.message
-					 }
-				}
-				catch {
-					 await MainActor.run {
-						  showError = true
-						  errorMessage = ErrorMessage.unknown.rawValue
-					 }
-				}
-
-				await MainActor.run {
+				guard let formattedNumber else {
+					 showError.toggle()
+					 errorMessage = "Phone number is empty!"
 					 isLoading = false
-					 verificationCode = ""
+					 return
+				}
+
+				print(formattedNumber + verificationCode)
+
+				Task {
+					 do {
+						  try await authService.authoriseUser(phoneNumber: formattedNumber, verificationCode: verificationCode)
+					 }
+					 catch let error as ErrorMessage {
+						  await MainActor.run {
+								showError = true
+								errorMessage = error.rawValue
+						  }
+					 }
+					 catch let error as NotFoundError {
+						  await MainActor.run {
+								showError = true
+								errorMessage = error.detail.message
+						  }
+					 }
+					 catch {
+						  await MainActor.run {
+								showError = true
+								errorMessage = ErrorMessage.unknown.rawValue
+						  }
+					 }
+
+					 await MainActor.run {
+						  isLoading = false
+						  verificationCode = ""
+					 }
 				}
 		  }
 	 }
@@ -160,7 +164,6 @@ final class AuthViewModel: ObservableObject {
 
 
 	 func resetUI() {
-		  // CANCEL REQUEST
 		  verificationRequested = false
 		  verificationCode = ""
 	 }
@@ -171,7 +174,7 @@ final class AuthViewModel: ObservableObject {
 		  }
 	 }
 
-	 func subscribeOnCountryMask() {
+	 private func subscribeOnCountryMask() {
 		  $countryMask
 				.dropFirst(1)
 				.debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
