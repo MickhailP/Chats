@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 final class RegistrationViewModel: ObservableObject {
 
@@ -16,14 +17,18 @@ final class RegistrationViewModel: ObservableObject {
 	 @Published var username = ""
 
 	 @Published var isRegistering = false
+	 @Published var isUsernameValid = false
 
 	 @MainActor @Published var showError = false
 	 @MainActor @Published private(set) var errorMessage = ""
+
+	 var cancellables = Set<AnyCancellable>()
 
 
 	 init(authService: AuthenticationProtocol, phoneNumber: String) {
 		  self.authService = authService
 		  self.phoneNumber = phoneNumber
+		  subscribeOnUsername()
 	 }
 
 
@@ -58,5 +63,23 @@ final class RegistrationViewModel: ObservableObject {
 					 isRegistering = false
 				}
 		  }
+	 }
+
+	 private func subscribeOnUsername() {
+		  $username
+				.debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+				.map { text -> Bool in
+					 print(text.isValidUserName())
+
+					 if text.isValidUserName() {
+						  return true
+					 } else {
+						  return false
+					 }
+				}
+				.sink(receiveValue: { [weak self] (isValid) in
+					 self?.isUsernameValid = isValid
+				})
+				.store(in: &cancellables)
 	 }
 }
