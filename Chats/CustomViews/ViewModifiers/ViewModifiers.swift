@@ -38,7 +38,22 @@ struct RegularShadow: ViewModifier {
 	 }
 }
 
+struct GrayRoundedContainer: ViewModifier {
 
+	 func body(content: Content) -> some View {
+		  content
+				.background(
+					 RoundedRectangle(cornerRadius: 8)
+						  .fill(Color(uiColor: .secondarySystemBackground
+))
+
+				)
+				.overlay(
+					 RoundedRectangle(cornerRadius: 8)
+						  .stroke(Color.gray, lineWidth: 1)
+				)
+	 }
+}
 
 
 extension View {
@@ -49,6 +64,10 @@ extension View {
 
 	 func regularShadow() -> some View {
 		  modifier(RegularShadow())
+	 }
+
+	 func grayRoundedContainer() -> some View {
+		  modifier(GrayRoundedContainer())
 	 }
 }
 

@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import UIKit
 
 protocol NetworkProtocol: AnyObject {
 
 	 func downloadDataResult(for request: URLRequest) async -> Result<Data, Error>
+	 func fetchImage(from urlString: String) async -> UIImage?
+
 }
 
 
@@ -40,6 +43,19 @@ extension NetworkProtocol {
 					 default:
 						  throw ServerError(code: statusCode)
 				}
+		  }
+	 }
+
+	 func handleResponse(_ response: URLResponse) throws {
+
+		  guard let response = response as? HTTPURLResponse else {
+				throw URLError(.cannotParseResponse)
+		  }
+
+		  if response.statusCode >= 200 && response.statusCode <= 300 {
+				return
+		  } else {
+				throw URLError(.badServerResponse)
 		  }
 	 }
 }
