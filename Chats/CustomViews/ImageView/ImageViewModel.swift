@@ -19,7 +19,7 @@ final class ImageViewModel: ObservableObject {
 
 
 	// MARK: Init
-	init(imageUrl: String, networkService: NetworkProtocol) {
+	init(imageUrl: String?, networkService: NetworkProtocol) {
 		self.networkService = networkService
 		self.imageUrl = imageUrl
 		self.cache = ImageCacheService.shared
@@ -28,7 +28,10 @@ final class ImageViewModel: ObservableObject {
 
 
 	private func getImage() {
-		guard let imageUrl else { return }
+		guard let imageUrl else {
+			 self.image = UIImage(systemName: "person")
+			 return
+		}
 		
 		if let image = cache.get(key: imageUrl) {
 			self.image = image

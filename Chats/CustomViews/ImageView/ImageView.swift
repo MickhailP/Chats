@@ -12,7 +12,7 @@ struct ImageView: View {
 	 @StateObject private var viewModel: ImageViewModel
 
 	 //MARK: Init
-	 init(imageUrl: String) {
+	 init(imageUrl: String?) {
 		  _viewModel = StateObject(wrappedValue: ImageViewModel(imageUrl: imageUrl, networkService: NetworkService()))
 	 }
 
@@ -24,7 +24,10 @@ struct ImageView: View {
 					 .resizable()
 					 .scaledToFit()
 		  } else {
-				ProgressView()
+				ZStack {
+					 ProgressView()
+				}
+				.frame(maxWidth: .infinity, maxHeight: .infinity)
 		  }
 	 }
 }
