@@ -27,7 +27,8 @@ struct ProfileView: View {
 
 					 ScrollView {
 						  VStack {
-								AvatarImageView(avatarURL: user.avatar, online: user.online)
+
+								AvatarImageView(base64: user.avatar, online: user.online)
 
 								header
 
