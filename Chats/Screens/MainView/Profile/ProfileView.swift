@@ -51,7 +51,7 @@ struct ProfileView: View {
 
 				.overlay(alignment: .topTrailing) {
 					 NavigationLink {
-
+						  EditProfileView(viewModel: EditProfileViewModel(user: User.example, apiService: APIService(networkService: NetworkService()))) 
 					 } label: {
 						  Image(systemName: "square.and.pencil")
 								.foregroundColor(.black)
