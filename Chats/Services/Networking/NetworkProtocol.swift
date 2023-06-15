@@ -12,7 +12,7 @@ protocol NetworkProtocol: AnyObject {
 
 	 func downloadDataResult(for request: URLRequest) async -> Result<Data, Error>
 	 func fetchImage(from urlString: String) async -> UIImage?
-
+	 func configureRequest(url: URL, httpMethod: String, token: String?, data: Data?) -> URLRequest
 }
 
 
