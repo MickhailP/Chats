@@ -20,8 +20,9 @@ final class ImageConverter {
 	 }
 
 
-	 func convertImageToBase64String(img: UIImage) -> String? {
-		  if let imageData = img.jpegData(compressionQuality: 1)?.base64EncodedString() {
+	 func convertImageToBase64String(img: UIImage?) -> String? {
+		  if let img,
+				let imageData = img.jpegData(compressionQuality: 1)?.base64EncodedString() {
 				return imageData
 		  }
 		  return nil
