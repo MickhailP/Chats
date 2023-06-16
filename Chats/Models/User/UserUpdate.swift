@@ -16,4 +16,9 @@ struct UserUpdate: Codable {
 // MARK: - Avatar
 struct Avatar: Codable {
 	 let filename, base64: String
+
+	 enum CodingKeys: String, CodingKey {
+		  case filename
+		  case base64 = "base_64"
+	 }
 }
