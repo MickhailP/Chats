@@ -50,13 +50,16 @@ final class Coordinator: NSObject, PHPickerViewControllerDelegate {
 
 		  if provider.canLoadObject(ofClass: UIImage.self) {
 				provider.loadObject(ofClass: UIImage.self) { image, _ in
-					 self.parent.image = image as? UIImage
 
-					 let assetIdentifier = results.first?.assetIdentifier
-					 let assetResult = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier ?? ""], options: nil)
-					 if let asset = assetResult.firstObject {
-						  let imageName = PHAssetResource.assetResources(for: asset).first?.originalFilename
-						  self.parent.imageName = imageName
+					 DispatchQueue.main.async {
+						  self.parent.image = image as? UIImage
+
+						  let assetIdentifier = results.first?.assetIdentifier
+						  let assetResult = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier ?? ""], options: nil)
+						  if let asset = assetResult.firstObject {
+								let imageName = PHAssetResource.assetResources(for: asset).first?.originalFilename
+								self.parent.imageName = imageName
+						  }
 					 }
 				}
 		  }
