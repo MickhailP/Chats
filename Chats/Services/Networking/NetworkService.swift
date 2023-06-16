@@ -42,15 +42,14 @@ final class NetworkService: NetworkProtocol {
 
 	 func configureRequest(url: URL, httpMethod: String, token: String?, data: Data?) -> URLRequest {
 		  var request = URLRequest(url: url)
-
 		  request.httpMethod = httpMethod
-		  request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
 		  if let token {
-				request.setValue(token, forHTTPHeaderField: "Authorization")
+				request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 		  }
 
 		  if let data {
+				request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 				request.httpBody = data
 		  }
 
