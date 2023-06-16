@@ -28,6 +28,7 @@ final class DataDecoder {
 	 func convertObjectToJSON<T: Encodable>(_ object: T) -> Data? {
 		  let encoder = JSONEncoder()
 		  encoder.outputFormatting = .prettyPrinted
+		  encoder.keyEncodingStrategy = .convertToSnakeCase
 
 		  do {
 				let jsonData = try encoder.encode(object)
