@@ -9,6 +9,9 @@ import SwiftUI
 
 struct EditProfileView: View {
 
+	 @Environment(\.dismiss) var dismiss
+	 @EnvironmentObject var authService: AuthService
+
 	 @StateObject var viewModel: EditProfileViewModel
 
 	 init(viewModel: EditProfileViewModel) {
@@ -30,6 +33,9 @@ struct EditProfileView: View {
 		  .toolbar {
 				ToolbarItem(placement: .confirmationAction) {
 					 Button("Done") {
+						  viewModel.submit() { newUser in
+								authService.user = newUser
+						  }
 					 }
 				}
 		  }
@@ -37,12 +43,17 @@ struct EditProfileView: View {
 				ImagePicker(image: $viewModel.inputImage, imageName: $viewModel.imageName)
 		  }
 		  .alert("Success", isPresented: $viewModel.showSuccess) {
-				Button("OK") { }
+				Button("OK") {
+					 dismiss()
+				}
+		  } message: {
+				Text(viewModel.message)
 		  }
-		  .alert("Error", isPresented: $viewModel.showError) {
+		  .alert("Error", isPresented: $viewModel.showError, actions: {
 				Button("OK") { }
+		  }) {
+				Text(viewModel.errorMessage)
 		  }
-
 	 }
 }
 
@@ -88,6 +99,7 @@ extension EditProfileView {
 				}
 		  }
 	 }
+
 
 	 var personalInformationSection: some View {
 		  Section {

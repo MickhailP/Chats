@@ -14,12 +14,12 @@ final class EditProfileViewModel: ObservableObject {
 	 
 	 @Published var user: User
 	 
-	 @Published var name = ""
+	 @Published var name: String
 	 @Published var birthday = Date.now
-	 @Published var city = ""
-	 @Published var status = "Enter new bio..."
-	 @Published var vk = ""
-	 @Published var instagram = ""
+	 @Published var city: String
+	 @Published var status: String
+	 @Published var vk: String
+	 @Published var instagram: String
 
 	 @Published var showImagePicker = false
 	 @Published var inputImage: UIImage?
@@ -35,7 +35,13 @@ final class EditProfileViewModel: ObservableObject {
 	 init(user: User, apiService: APIService) {
 		  self.user = user
 		  self.apiService = apiService
-		  self.imageName = ""
+
+		  self.name = user.name
+		  self.birthday = user.birthday?.convertFromDashedDate() ?? Date.now
+		  self.city = user.city ?? ""
+		  self.status = user.status ?? ""
+		  self.vk = user.vk ?? ""
+		  self.instagram = user.instagram ?? ""
 
 		  if let imageData = user.avatar {
 				self.inputImage = ImageConverter().convertBase64ToImage(base64String: imageData)
@@ -43,7 +49,8 @@ final class EditProfileViewModel: ObservableObject {
 	 }
 	 
 	 
-	 func submit() {
+	 func submit(completion: @escaping ((User) -> Void)) {
+
 		  guard let updatedUser = createUpdatedUser() else {
 				showError = true
 				errorMessage = ErrorMessage.unableConvertImageData.rawValue
@@ -54,9 +61,13 @@ final class EditProfileViewModel: ObservableObject {
 				do {
 					 try await apiService.updateUserOnServer(user: updatedUser)
 
+					 let newUser = updateCurrentUserData(with: updatedUser)
+					 try saveToUserDefaults(newUser)
+
 					 await MainActor.run {
 						  showSuccess = true
 						  message = "Data has been saved"
+						  completion(newUser)
 					 }
 				}
 				catch let error as ErrorMessage{
@@ -64,11 +75,17 @@ final class EditProfileViewModel: ObservableObject {
 						  showError = true
 						  errorMessage = error.rawValue
 					 }
+				} catch let error as ValidationError {
+					 await MainActor.run {
+						  print(error)
+						  showError = true
+						  errorMessage = error.detail.first?.msg ?? error.localizedDescription
+					 }
 				}
 				catch {
 					 await MainActor.run {
 						  showError = true
-						  errorMessage = ErrorMessage.unknown.rawValue
+						  errorMessage = error.localizedDescription
 					 }
 				}
 		  }
@@ -77,15 +94,11 @@ final class EditProfileViewModel: ObservableObject {
 
 	 private func createUpdatedUser() -> UserUpdate? {
 
-		  guard let inputImage,
-				  let imageName,
-				  let imageData = ImageConverter().convertImageToBase64String(img: inputImage)
-		  else {
-				return nil
-		  }
+		  let imageData = ImageConverter().convertImageToBase64String(img: inputImage)
 
-		  let newAvatar = Avatar(filename: imageName, base64: imageData)
-		  let updatedUser = UserUpdate(name: user.name,
+		  let newAvatar = Avatar(filename: imageName ?? "" , base64: imageData ?? "")
+
+		  let updatedUser = UserUpdate(name: name,
 												 username: user.username,
 												 birthday: birthday.convertToDashedDate(),
 												 city: city,
@@ -94,5 +107,16 @@ final class EditProfileViewModel: ObservableObject {
 												 status: status,
 												 avatar: newAvatar)
 		  return updatedUser
+	 }
+
+
+	 private func updateCurrentUserData(with update: UserUpdate) -> User {
+		  User(phone: user.phone, name: update.name, username: user.username, birthday: update.birthday, city: update.city, vk: update.vk, instagram: update.instagram, status: update.status, online: user.online)
+	 }
+
+
+	 private func saveToUserDefaults(_ user: User) throws {
+		  try PersistenceService.save(user: user)
+		  print("SAVED")
 	 }
 }
