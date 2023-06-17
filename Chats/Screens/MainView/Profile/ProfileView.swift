@@ -10,13 +10,14 @@ import SwiftUI
 struct ProfileView: View {
 
 	 @Environment(\.colorScheme) var colorScheme
+	 @EnvironmentObject var authService: AuthService
 
-
-	 let user: User
+	 @State private var profileText = "Enter your bio..."
 
 	 let corner: CGFloat = 10
 
-	 @State private var profileText = "Enter your bio..."
+	 @State private var showError = false
+	 @State private var errorMessage = ""
 
 	 var body: some View {
 		  NavigationView {
@@ -28,7 +29,8 @@ struct ProfileView: View {
 					 ScrollView {
 						  VStack {
 
-								AvatarImageView(base64: user.avatar, online: user.online)
+								AvatarImageView(base64: authService.user?.avatar, online: authService.user?.online)
+									 .padding(.top, 30)
 
 								header
 
@@ -45,20 +47,20 @@ struct ProfileView: View {
 					 }
 					 .frame(maxWidth: .infinity)
 					 .background(.ultraThinMaterial)
-
 				}
 				.navigationBarHidden(true)
 
 				.overlay(alignment: .topTrailing) {
 					 NavigationLink {
-						  EditProfileView(viewModel: EditProfileViewModel(user: User.example, apiService: APIService(networkService: NetworkService()))) 
+						  if let user = authService.user {
+								EditProfileView(viewModel: EditProfileViewModel(user: user, apiService: APIService(networkService: NetworkService())))
+						  }
 					 } label: {
 						  Image(systemName: "square.and.pencil")
 								.foregroundColor(.black)
-									 .font(.title3)
+								.font(.title3)
 								.padding(15)
 					 }
-
 					 .labelStyle(.iconOnly)
 				}
 		  }
@@ -70,9 +72,9 @@ extension ProfileView {
 	 
 	 var header: some View {
 		  VStack(spacing: 5) {
-				Text(user.name)
+				Text(authService.user?.name ?? "Unknown")
 					 .font(.title)
-				Text(user.username)
+				Text(authService.user?.username ?? "Unknown")
 					 .foregroundColor(.secondary)
 		  }
 		  .padding()
@@ -86,7 +88,7 @@ extension ProfileView {
 				VStack(spacing: 5) {
 					 Group {
 						  Text("Completed")
-						  Text("\(user.completedTask ?? 0) tasks")
+						  Text("\(authService.user?.completedTask ?? 0) tasks")
 								.padding(5)
 								.background(Color.green)
 								.clipShape(Capsule())
@@ -103,9 +105,12 @@ extension ProfileView {
 					 Group {
 						  Text("Last visit")
 								.foregroundColor(.secondary)
-						  if let date = user.last?.convertToDate() {
+						  if let date = authService.user?.last?.convertToDate() {
 								let dateSting = date.convertToDayMonthTimeFormat()
 								Text(dateSting)
+									 .padding(.vertical, 5)
+						  } else {
+								Text("Unknown")
 									 .padding(.vertical, 5)
 						  }
 					 }
@@ -119,9 +124,13 @@ extension ProfileView {
 					 
 					 Text("Created")
 						  .foregroundColor(.secondary)
-					 if let date = user.created?.convertToDate() {
+					 if let date = authService.user?.created?.convertToDate() {
 						  let dateSting = date.convertToShortDate()
 						  Text(dateSting)
+								.padding(.vertical, 5)
+					 }
+					 else {
+						  Text("Unknown")
 								.padding(.vertical, 5)
 					 }
 				}
@@ -135,10 +144,10 @@ extension ProfileView {
 
 	 var personalDataSection: some View {
 		  VStack(alignment: .leading, spacing: 10) {
-				Text("📱" + user.phone)
-				Text("📍 \(user.city ?? "NA") ")
-				Text("🎁 \(user.birthday ?? "NA") ")
-				Text("🐒 zodiak ")
+				Text("📱 +" + (authService.user?.phone ?? "Unknown"))
+				Text("📍 \(authService.user?.city ?? "Unknown")")
+				Text("🎁 \(authService.user?.birthday ?? "Unknown")")
+				Text(getZodiacSignAndName(from: authService.user?.birthday) ?? "Unknown")
 
 		  }
 		  .padding()
@@ -153,8 +162,9 @@ extension ProfileView {
 					 .frame(maxWidth: .infinity, alignment: .leading)
 
 
-				Text(user.status ?? "")
+				Text(authService.user?.status ?? "")
 					 .padding(5)
+					 .fixedSize(horizontal: false, vertical: true)
 					 .frame(maxWidth: .infinity, alignment: .leading)
 					 .foregroundColor(.secondary)
 					 .grayRoundedContainer()
@@ -171,31 +181,50 @@ extension ProfileView {
 						  .font(.headline)
 					 Spacer()
 				}
-				Group {
-					 HStack {
-						  Image(systemName: "person.fill.viewfinder")
-						  if let urlString = user.vk,
-							  let url = URL(string: urlString ){
-								Link("VK", destination: url)
-						  }
-					 }
-					 HStack {
-						  Image(systemName: "person.fill.viewfinder")
-						  if let urlString = user.instagram,
-							  let url = URL(string: urlString ) {
-								Link("Instagram", destination: url)
-						  }
+
+				HStack {
+					 Image(systemName: "person.fill.viewfinder")
+					 Text("VK")
+					 if let urlString = authService.user?.vk,
+						 let url = URL(string: urlString ){
+						  Link(urlString, destination: url)
 					 }
 				}
-				.font(.footnote)
+
+				HStack {
+					 Image(systemName: "person.fill.viewfinder")
+					 Text("Instagram")
+					 if let urlString = authService.user?.instagram,
+						 let url = URL(string: urlString ) {
+						  Link(urlString, destination: url)
+					 }
+				}
 		  }
 		  .padding()
+	 }
+}
+
+//MARK: - Zodiac
+extension ProfileView {
+
+	 private func getZodiacSignAndName(from birthday: String?) -> String?{
+
+		  if let birthday,
+			  let date = birthday.convertFromDashedDate(),
+			  let sign = ZodiacAPI.getZodiacSign(for: date) {
+
+				let signAndName = "\(sign.rawValue) \(sign.zodiacName)"
+				return signAndName
+		  }
+		  return nil
 	 }
 }
 
 //MARK: - Preview
 struct ProfileView_Previews: PreviewProvider {
 	 static var previews: some View {
-		  ProfileView(user: User.example)
+		  //		  ProfileView(user: Binding.constant(User.example))
+		  ProfileView()
+
 	 }
 }
