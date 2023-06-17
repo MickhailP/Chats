@@ -87,7 +87,7 @@ enum ZodiacSign: String {
 //MARK: - ZodiacName
 extension ZodiacSign {
 
-	 var localizedZodiacName: String {
+	 var zodiacName: String {
 		  switch self {
 				case .aquarius: return "Aquarius"
 				case .pisces: return "Pisces"
