@@ -11,7 +11,7 @@ import Foundation
 enum ErrorMessage: String, Error {
 	 case badURl = "URL is invalid"
 	 case invalidData = "Data is missing"
-	 case barRequest = "Request is not correct"
+	 case badRequest = "Request is not correct"
 
 	 case verificationError = "Phone number didn't verified"
 	 case phoneNumberMissing = "Phone number is missed"
@@ -21,6 +21,10 @@ enum ErrorMessage: String, Error {
 
 	 case unableFetchFromDataBase = "Failed to load data from storage."
 	 case authDataIsMissing = "Failed to load auth data"
+
+	 case tokenIsMissing = "Token is missing"
+
+	 case unableConvertImageData = "Failed to convert image for uploading format"
 
 	 case unknown = "Unknown error"
 }

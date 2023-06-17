@@ -25,4 +25,15 @@ extension String {
 				return nil
 		  }
 	 }
+
+	 func convertFromDashedDate() -> Date? {
+		  let dateFormatter = DateFormatter()
+		  dateFormatter.dateFormat = "yyyy-MM-dd"
+
+		  if let date = dateFormatter.date(from: self) {
+				return date
+		  } else {
+				return nil
+		  }
+	 }
 }

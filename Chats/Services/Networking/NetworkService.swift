@@ -39,6 +39,22 @@ final class NetworkService: NetworkProtocol {
 				return nil
 		  }
 	 }
+
+	 func configureRequest(url: URL, httpMethod: String, token: String?, data: Data?) -> URLRequest {
+		  var request = URLRequest(url: url)
+		  request.httpMethod = httpMethod
+
+		  if let token {
+				request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+		  }
+
+		  if let data {
+				request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+				request.httpBody = data
+		  }
+
+		  return request
+	 }
 }
 
 

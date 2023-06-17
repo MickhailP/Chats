@@ -35,6 +35,7 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 	 @Published var phoneNumber: String?  
 
 	 @Published var authData: AuthData?
+	 @Published var user: User?
 
 	 @Published private (set) var isVerified = false
 	 @Published var shouldRegister = false
@@ -58,14 +59,14 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 		  """
 
 		  guard let request = configureTokenFreeRequest(httpMethod: "POST", url: url, json: json) else {
-				throw ErrorMessage.barRequest
+				throw ErrorMessage.badRequest
 		  }
 
 		  let result = await networkingService.downloadDataResult(for: request)
 
 		  switch result {
 				case .success(let data):
-					 guard let decoded: VerificationCode = Decoder.decode(data) else {
+					 guard let decoded: VerificationCode = DataDecoder.decode(data) else {
 						  throw ErrorMessage.decodingError
 					 }
 
@@ -79,6 +80,7 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 					 throw failure
 		  }
 	 }
+
 
 	 func authoriseUser(phoneNumber: String, verificationCode: String) async throws {
 		  await MainActor.run {
@@ -97,14 +99,14 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 				"""
 
 		  guard let request = configureTokenFreeRequest(httpMethod: "POST", url: url, json: json) else {
-				throw ErrorMessage.barRequest
+				throw ErrorMessage.badRequest
 		  }
 
 		  let result = await networkingService.downloadDataResult(for: request)
 
 		  switch result {
 				case .success(let data):
-					 guard let authData: AuthData = Decoder.decode(data) else {
+					 guard let authData: AuthData = DataDecoder.decode(data) else {
 						  throw ErrorMessage.decodingError
 					 }
 
@@ -139,14 +141,14 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 				"""
 
 		  guard let request = configureTokenFreeRequest(httpMethod: "POST", url: url, json: json) else {
-				throw ErrorMessage.barRequest
+				throw ErrorMessage.badRequest
 		  }
 
 		  let result = await networkingService.downloadDataResult(for: request)
 
 		  switch result {
 				case .success(let data):
-					 guard let authData: AuthData = Decoder.decode(data) else {
+					 guard let authData: AuthData = DataDecoder.decode(data) else {
 						  throw ErrorMessage.decodingError
 					 }
 

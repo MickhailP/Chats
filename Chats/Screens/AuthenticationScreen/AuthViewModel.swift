@@ -14,11 +14,11 @@ final class AuthViewModel: ObservableObject {
 	 let regionCodeService: RegionCodesService
 
 	 @Published var countries: [String: String]
-	 @Published var countryNameAndFlag = "RU 🇷🇺"
-	 @Published var countryMask = ""
+	 @Published var countryNameAndFlag = ""
+	 @Published var countryMask = "7"
 
-	 @Published var phoneNumber = ""
-	 @Published var verificationCode = ""
+	 @Published var phoneNumber = "9196557367"
+	 @Published var verificationCode = "133337"
 
 
 	 @Published private(set) var verificationRequested = false

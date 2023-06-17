@@ -8,7 +8,7 @@
 import Foundation
 
 
-class Decoder {
+final class DataDecoder {
 
 	class func decode<T: Decodable> (_ data: Data) -> T? {
 
@@ -23,6 +23,19 @@ class Decoder {
 			  print(error.localizedDescription)
 			  return nil
 		 }
+	 }
 
+	 func convertObjectToJSON<T: Encodable>(_ object: T) -> Data? {
+		  let encoder = JSONEncoder()
+		  encoder.outputFormatting = .prettyPrinted
+		  encoder.keyEncodingStrategy = .convertToSnakeCase
+
+		  do {
+				let jsonData = try encoder.encode(object)
+				return jsonData
+		  } catch {
+				print("Failed to convert object to JSON: \(error.localizedDescription)")
+				return nil
+		  }
 	 }
 }

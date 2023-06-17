@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct UserResponse: Decodable {
+	 
+	 let profileData: User
+}
 
 struct User: Codable {
 
