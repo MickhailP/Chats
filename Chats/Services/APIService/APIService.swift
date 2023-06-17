@@ -23,28 +23,42 @@ final class APIService {
 	 func updateUserOnServer(user: UserUpdate) async throws {
 
 		  do {
-				let tokenIsValid = try checkAuthToken()
+				try await checkAuthToken()
 
 				guard let authData,
-						let accessToken = authData.accessToken,
-						let refreshToken = authData.refreshToken
+						let accessToken = authData.accessToken
 				else {
 					 throw ErrorMessage.authDataIsMissing
 				}
 
-				if tokenIsValid {
-					 try await sendUpdateRequest(user: user, token: accessToken)
-				} else {
-					 try await refreshAccessToken(with: refreshToken) { authData in
+				try await sendUpdateRequest(user: user, token: accessToken)
 
-						  guard let newToken = authData.accessToken else {
-								throw ErrorMessage.tokenIsMissing
-						  }
+		  } catch {
+				throw error
+		  }
+	 }
 
-						  try await sendUpdateRequest(user: user, token: newToken)
-					 }
+	 private func checkAuthToken() async throws {
+
+		  do {
+				let authData = try KeychainStorage.getCredentials()
+
+				let currentDate = Date.now
+				guard let expirationDate = authData?.date.addingTimeInterval(600) else {
+					 throw ErrorMessage.authDataIsMissing
 				}
 
+				if currentDate < expirationDate {
+					 self.authData = authData
+				} else {
+					 if let refreshToken = authData?.refreshToken,
+						 let accessToken = authData?.accessToken {
+
+						  try await refreshAccessToken(with: refreshToken, accessToken: accessToken) { newAuthData in
+								self.authData = newAuthData
+						  }
+					 }
+				}
 		  } catch {
 				throw error
 		  }
@@ -67,7 +81,7 @@ final class APIService {
 
 		  switch result {
 				case .success:
-					 saveUser()
+					 break
 
 				case .failure(let error):
 					 throw error
@@ -75,29 +89,9 @@ final class APIService {
 	 }
 
 
-	 private func checkAuthToken() throws -> Bool {
+	 private func refreshAccessToken(with refreshToken: String, accessToken: String, completion: ((AuthData) async throws -> Void)) async throws {
 
-		  do {
-				let authData = try KeychainStorage.getCredentials()
-
-				let currentDate = Date.now
-				let expirationDate = currentDate.addingTimeInterval(600)
-
-				if currentDate < expirationDate {
-					 self.authData = authData
-					 return true
-				} else  {
-					 return false
-				}
-		  } catch {
-				throw error
-		  }
-	 }
-
-
-	 private func refreshAccessToken(with refreshToken: String, completion: ((AuthData) async throws -> Void)) async throws {
-
-		  guard let url = Endpoint.userInfo.url else {
+		  guard let url = Endpoint.refreshToken.url else {
 				throw ErrorMessage.badURl
 		  }
 
@@ -111,7 +105,7 @@ final class APIService {
 				throw ErrorMessage.encodingError
 		  }
 
-		  let request = networkService.configureRequest(url: url, httpMethod: "POST", token: refreshToken, data: uploadData)
+		  let request = networkService.configureRequest(url: url, httpMethod: "POST", token: accessToken, data: uploadData)
 
 		  let result = await networkService.downloadDataResult(for: request)
 
@@ -132,7 +126,39 @@ final class APIService {
 	 }
 
 
-	 private func saveUser() {
+	 func getUserData() async throws -> User {
 
+		  try await checkAuthToken()
+
+		  guard let url = Endpoint.userInfo.url else {
+				throw ErrorMessage.badURl
+		  }
+
+		  guard let authData,
+				  let accessToken = authData.accessToken
+		  else {
+				throw ErrorMessage.authDataIsMissing
+		  }
+
+		  let request = networkService.configureRequest(url: url, httpMethod: "GET", token: accessToken, data: nil)
+
+		
+		  let result = await networkService.downloadDataResult(for: request)
+
+		  switch result {
+				case .success(let data):
+
+					 guard let userResponse: UserResponse = DataDecoder.decode(data) else {
+						  throw ErrorMessage.decodingError
+					 }
+					 let user = userResponse.profileData
+
+					 print(userResponse)
+					 return user
+
+				case .failure(let error):
+					 print(error)
+					 throw error
+		  }
 	 }
 }
