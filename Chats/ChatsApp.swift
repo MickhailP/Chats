@@ -27,6 +27,7 @@ struct ChatsApp: App {
 									 .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .opacity))
 					 }
 				}
+				.environmentObject(authenticationService)
 				.animation(.easeInOut, value: authenticationService.authState)
 		  }
     }
