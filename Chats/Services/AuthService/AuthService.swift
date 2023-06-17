@@ -35,6 +35,7 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 	 @Published var phoneNumber: String?  
 
 	 @Published var authData: AuthData?
+	 @Published var user: User?
 
 	 @Published private (set) var isVerified = false
 	 @Published var shouldRegister = false
