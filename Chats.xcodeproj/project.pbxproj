@@ -50,6 +50,7 @@
 		D7C94C442A3B9AF000C05915 /* MainAppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C94C432A3B9AF000C05915 /* MainAppViewModel.swift */; };
 		D7C94C472A3C899600C05915 /* PersistenseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C94C462A3C899600C05915 /* PersistenseService.swift */; };
 		D7C94C4D2A3DA6A400C05915 /* ZodiacAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C94C4C2A3DA6A400C05915 /* ZodiacAPI.swift */; };
+		D7C94C502A3DCA4A00C05915 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C94C4F2A3DCA4A00C05915 /* LoadingView.swift */; };
 		D7F746592A31EA9600E6D06D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F746582A31EA9600E6D06D /* AuthViewModel.swift */; };
 		D7F7465D2A31FB4100E6D06D /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */; };
 /* End PBXBuildFile section */
@@ -99,6 +100,7 @@
 		D7C94C432A3B9AF000C05915 /* MainAppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAppViewModel.swift; sourceTree = "<group>"; };
 		D7C94C462A3C899600C05915 /* PersistenseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenseService.swift; sourceTree = "<group>"; };
 		D7C94C4C2A3DA6A400C05915 /* ZodiacAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZodiacAPI.swift; sourceTree = "<group>"; };
+		D7C94C4F2A3DCA4A00C05915 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		D7F746582A31EA9600E6D06D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		D7F7465C2A31FB4100E6D06D /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -395,6 +397,14 @@
 			path = ZodiacAPI;
 			sourceTree = "<group>";
 		};
+		D7C94C4E2A3DCA3400C05915 /* LoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				D7C94C4F2A3DCA4A00C05915 /* LoadingView.swift */,
+			);
+			path = LoadingView;
+			sourceTree = "<group>";
+		};
 		D7F746552A31E9C900E6D06D /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +418,7 @@
 		D7F7465A2A31FB0A00E6D06D /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				D7C94C4E2A3DCA3400C05915 /* LoadingView */,
 				D79ACA002A383BD100E3C3E5 /* Gradients */,
 				D7F7465B2A31FB1C00E6D06D /* ViewModifiers */,
 				D766A3DF2A32134A004E17FF /* Buttons */,
@@ -519,6 +530,7 @@
 				D79ACA0C2A38E4C600E3C3E5 /* ProfileView.swift in Sources */,
 				D79AC9F92A374B0F00E3C3E5 /* StringExt.swift in Sources */,
 				D787666F2A31E0E5002B9717 /* NetworkService.swift in Sources */,
+				D7C94C502A3DCA4A00C05915 /* LoadingView.swift in Sources */,
 				D7C94C442A3B9AF000C05915 /* MainAppViewModel.swift in Sources */,
 				D7C94C4D2A3DA6A400C05915 /* ZodiacAPI.swift in Sources */,
 				D7C94C472A3C899600C05915 /* PersistenseService.swift in Sources */,

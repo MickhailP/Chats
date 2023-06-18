@@ -25,6 +25,8 @@ final class EditProfileViewModel: ObservableObject {
 	 @Published var inputImage: UIImage?
 	 @Published var imageName: String?
 
+	 @Published var isLoading = false
+
 	 @Published var showError = false
 	 @Published private(set) var errorMessage = ""
 
@@ -50,14 +52,27 @@ final class EditProfileViewModel: ObservableObject {
 	 
 	 
 	 func submit(completion: @escaping ((User) -> Void)) {
+		  isLoading = true
+
 
 		  guard let updatedUser = createUpdatedUser() else {
+				isLoading = false
 				showError = true
 				errorMessage = ErrorMessage.unableConvertImageData.rawValue
 				return
 		  }
 
 		  Task {
+
+				defer {
+					 Task {
+						  await MainActor.run {
+								isLoading = false
+						  }
+					 }
+				}
+
+
 				do {
 					 try await apiService.updateUserOnServer(user: updatedUser)
 

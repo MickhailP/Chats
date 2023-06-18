@@ -19,15 +19,15 @@ struct MainAppView: View {
 					 .tabItem {
 						  Label("Chats", systemImage: "message")
 					 }
-				ProfileView()
+				ProfileView(isLoadingContent: $viewModel.isLoading)
 					 .tabItem {
 						  Label("Profile", systemImage: "person.circle")
 					 }
-					 .task {
-						  await viewModel.fetchUserData { user in
-								authService.user = user
-						  }
-					 }
+		  }
+		  .task {
+				await viewModel.fetchUserData { user in
+					 authService.user = user
+				}
 		  }
 		  .alert("Error", isPresented: $viewModel.showError, actions: {
 				Button("Ok") { }

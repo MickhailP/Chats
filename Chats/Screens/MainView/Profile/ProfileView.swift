@@ -14,55 +14,62 @@ struct ProfileView: View {
 
 	 @State private var profileText = "Enter your bio..."
 
+	 @Binding var isLoadingContent: Bool
+
 	 let corner: CGFloat = 10
 
 	 @State private var showError = false
 	 @State private var errorMessage = ""
 
+
+	 @ViewBuilder
 	 var body: some View {
-		  NavigationView {
+		  if !isLoadingContent {
+				NavigationView {
+					 ZStack {
+						  Gradients.main()
+								.opacity(colorScheme == .dark ? 0.5 : 0.3)
 
-				ZStack {
-					 Gradients.main()
-						  .opacity(colorScheme == .dark ? 0.5 : 0.3)
+						  ScrollView {
+								VStack {
 
-					 ScrollView {
-						  VStack {
+									 AvatarImageView(base64: authService.user?.avatar, online: authService.user?.online)
+										  .padding(.top, 30)
 
-								AvatarImageView(base64: authService.user?.avatar, online: authService.user?.online)
-									 .padding(.top, 30)
+									 header
 
-								header
+									 metricsSection
 
-								metricsSection
+									 personalDataSection
 
-								personalDataSection
+									 aboutMe
 
-								aboutMe
-
-								socialMediaSection
+									 socialMediaSection
+								}
+								.padding(.horizontal, 20)
+								.frame(maxWidth: .infinity)
 						  }
-						  .padding(.horizontal, 20)
 						  .frame(maxWidth: .infinity)
+						  .background(.ultraThinMaterial)
 					 }
-					 .frame(maxWidth: .infinity)
-					 .background(.ultraThinMaterial)
-				}
-				.navigationBarHidden(true)
+					 .navigationBarHidden(true)
 
-				.overlay(alignment: .topTrailing) {
-					 NavigationLink {
-						  if let user = authService.user {
-								EditProfileView(viewModel: EditProfileViewModel(user: user, apiService: APIService(networkService: NetworkService())))
+					 .overlay(alignment: .topTrailing) {
+						  NavigationLink {
+								if let user = authService.user {
+									 EditProfileView(viewModel: EditProfileViewModel(user: user, apiService: APIService(networkService: NetworkService())))
+								}
+						  } label: {
+								Image(systemName: "square.and.pencil")
+									 .foregroundColor(.black)
+									 .font(.title3)
+									 .padding(15)
 						  }
-					 } label: {
-						  Image(systemName: "square.and.pencil")
-								.foregroundColor(.black)
-								.font(.title3)
-								.padding(15)
+						  .labelStyle(.iconOnly)
 					 }
-					 .labelStyle(.iconOnly)
 				}
+		  } else {
+				LoadingView()
 		  }
 	 }
 }
@@ -204,6 +211,7 @@ extension ProfileView {
 	 }
 }
 
+
 //MARK: - Zodiac
 extension ProfileView {
 
@@ -220,11 +228,11 @@ extension ProfileView {
 	 }
 }
 
+
 //MARK: - Preview
 struct ProfileView_Previews: PreviewProvider {
 	 static var previews: some View {
-		  //		  ProfileView(user: Binding.constant(User.example))
-		  ProfileView()
-
+		  ProfileView(isLoadingContent: Binding.constant(false))
+				.environmentObject(AuthService(networkingService: NetworkService()))
 	 }
 }

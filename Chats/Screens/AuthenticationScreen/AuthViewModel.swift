@@ -12,10 +12,11 @@ final class AuthViewModel: ObservableObject {
 
 	 let authService: AuthenticationProtocol
 	 let regionCodeService: RegionCodesService
+	 
 
 	 @Published var countries: [String: String]
 	 @Published var countryNameAndFlag = ""
-	 @Published var countryMask = "7"
+	 @Published var countryMask = ""
 
 	 @Published var phoneNumber = "9196557367"
 	 @Published var verificationCode = "133337"
@@ -23,6 +24,7 @@ final class AuthViewModel: ObservableObject {
 
 	 @Published private(set) var verificationRequested = false
 	 @Published private(set) var isLoading = false
+	 @Published private(set) var isAuthorisation = false
 
 	 @Published var showError = false
 	 @Published private(set) var errorMessage = ""
@@ -57,6 +59,8 @@ final class AuthViewModel: ObservableObject {
 		  isLoading = true
 		  verificationRequested = true
 
+
+
 		  guard let formattedNumber else {
 				showError.toggle()
 				errorMessage = "Phone number is empty!"
@@ -66,6 +70,15 @@ final class AuthViewModel: ObservableObject {
 		  }
 
 		  Task {
+
+				defer {
+					 Task {
+						  await MainActor.run {
+								isLoading = false
+						  }
+					 }
+				}
+
 				do {
 					 try await authService.verify(phoneNumber: formattedNumber)
 				} catch let error as ErrorMessage {
@@ -86,16 +99,13 @@ final class AuthViewModel: ObservableObject {
 						  errorMessage = ErrorMessage.unknown.rawValue
 					 }
 				}
-
-				await MainActor.run {
-					 isLoading = false
-				}
 		  }
 	 }
 
 	 
 	 func authorise() {
 		  isLoading = true
+		  isAuthorisation = true
 
 		  if authService.isVerified {
 
@@ -110,6 +120,14 @@ final class AuthViewModel: ObservableObject {
 				print(formattedNumber + verificationCode)
 
 				Task {
+					 defer {
+						  Task {
+								await MainActor.run {
+									 isLoading = false
+								}
+						  }
+					 }
+
 					 do {
 						  try await authService.authoriseUser(phoneNumber: formattedNumber, verificationCode: verificationCode)
 					 }
@@ -131,12 +149,10 @@ final class AuthViewModel: ObservableObject {
 								errorMessage = ErrorMessage.unknown.rawValue
 						  }
 					 }
-
-					 await MainActor.run {
-						  isLoading = false
-						  verificationCode = ""
-					 }
 				}
+		  } else {
+				showError = true
+				errorMessage = ErrorMessage.verificationError.rawValue
 		  }
 	 }
 

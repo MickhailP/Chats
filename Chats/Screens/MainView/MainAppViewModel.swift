@@ -25,36 +25,36 @@ final class MainAppViewModel: ObservableObject {
 				isLoading = true
 		  }
 
+		  defer {
+				Task  {
+					 await MainActor.run {
+						  isLoading = false
+					 }
+				}
+		  }
+
 		  do {
 				if let savedUser = PersistenceService.fetchUser() {
-
-					 print("GET SAVED")
 					 await MainActor.run {
 						  completion(savedUser)
-						  isLoading = false
 					 }
 				} else {
 					 let fetchedUser = try await apiService.getUserData()
 
 					 try PersistenceService.save(user: fetchedUser)
 					 await MainActor.run {
-						  print("GET FETCHED")
 						  completion(fetchedUser)
-						  isLoading = false
 					 }
 				}
 		  } catch let error as ErrorMessage {
 				await MainActor.run {
 					 showError = true
 					 errorMessage = error.rawValue
-					 isLoading = false
 				}
 		  } catch {
-				print(error)
 				await MainActor.run {
 					 showError = true
 					 errorMessage = error.localizedDescription
-					 isLoading = false
 				}
 		  }
 	 }

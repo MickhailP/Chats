@@ -18,41 +18,46 @@ struct EditProfileView: View {
 		  _viewModel = StateObject(wrappedValue: viewModel)
 	 }
 
+	 @ViewBuilder
 	 var body: some View {
-		  Form {
-				headerSection
+		  if !viewModel.isLoading {
+				Form {
+					 headerSection
 
-				personalInformationSection
+					 personalInformationSection
 
-				bioSection
+					 bioSection
 
-				socialMediaSection
+					 socialMediaSection
 
-		  }
-		  .navigationTitle("Edit profile")
-		  .toolbar {
-				ToolbarItem(placement: .confirmationAction) {
-					 Button("Done") {
-						  viewModel.submit() { newUser in
-								authService.user = newUser
+				}
+				.navigationTitle("Edit profile")
+				.toolbar {
+					 ToolbarItem(placement: .confirmationAction) {
+						  Button("Done") {
+								viewModel.submit() { newUser in
+									 authService.user = newUser
+								}
 						  }
 					 }
 				}
-		  }
-		  .sheet(isPresented: $viewModel.showImagePicker) {
-				ImagePicker(image: $viewModel.inputImage, imageName: $viewModel.imageName)
-		  }
-		  .alert("Success", isPresented: $viewModel.showSuccess) {
-				Button("OK") {
-					 dismiss()
+				.sheet(isPresented: $viewModel.showImagePicker) {
+					 ImagePicker(image: $viewModel.inputImage, imageName: $viewModel.imageName)
 				}
-		  } message: {
-				Text(viewModel.message)
-		  }
-		  .alert("Error", isPresented: $viewModel.showError, actions: {
-				Button("OK") { }
-		  }) {
-				Text(viewModel.errorMessage)
+				.alert("Success", isPresented: $viewModel.showSuccess) {
+					 Button("OK") {
+						  dismiss()
+					 }
+				} message: {
+					 Text(viewModel.message)
+				}
+				.alert("Error", isPresented: $viewModel.showError, actions: {
+					 Button("OK") { }
+				}) {
+					 Text(viewModel.errorMessage)
+				}
+		  } else {
+				LoadingView()
 		  }
 	 }
 }
@@ -156,5 +161,6 @@ extension EditProfileView {
 struct EditProfileView_Previews: PreviewProvider {
 	 static var previews: some View {
 		  EditProfileView(viewModel: EditProfileViewModel(user: User.example, apiService: APIService(networkService: NetworkService())))
+				.onAppear()
 	 }
 }

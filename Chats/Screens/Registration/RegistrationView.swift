@@ -22,38 +22,44 @@ struct RegistrationView: View {
 		  _viewModel = StateObject(wrappedValue: viewModel)
 	 }
 
-    var body: some View {
-		  ScrollView {
-				VStack {
-					 header
+	 var body: some View {
+		  ZStack {
+				ScrollView {
+					 VStack {
+						  header
 
-					 registrationFields
+						  registrationFields
 
 
-					 Button {
-						  if !viewModel.isRegistering {
-								viewModel.registerPressed()
+						  Button {
+								if !viewModel.isRegistering {
+									 viewModel.registerPressed()
+								}
+						  } label: {
+								Text("Register")
 						  }
-					 } label: {
-						  Text("Register")
+						  .bigGreenButton()
+						  .disabled(viewModel.isRegistering)
+						  .padding(.top, 50)
 					 }
-					 .bigGreenButton()
-					 .disabled(viewModel.isRegistering)
-					 .padding(.top, 50)
+					 .regularShadow()
+					 .padding(.top, 100)
 				}
-				.regularShadow()
-				.padding(.top, 100)
+				.onTapGesture {
+					 focusField = .none
+				}
+				.alert("Error", isPresented: $viewModel.showError, actions: {
+					 Button("Ok", action: {})
+				}, message: {
+					 Text("\(viewModel.errorMessage)")
+				})
+				.padding(1)
+				.background( Gradients.main())
+
+				if viewModel.isRegistering {
+					 LoadingView()
+				}
 		  }
-		  .onTapGesture {
-				focusField = .none
-		  }
-		  .alert("Error", isPresented: $viewModel.showError, actions: {
-				Button("Ok", action: {})
-		  }, message: {
-				Text("\(viewModel.errorMessage)")
-		  })
-		  .padding(1)
-		  .background( Gradients.main())
 	 }
 }
 
