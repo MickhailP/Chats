@@ -9,8 +9,13 @@ import SwiftUI
 
 struct MainAppView: View {
 
-	 @StateObject var viewModel = MainAppViewModel(apiService: APIService(networkService: NetworkService()))
+	 @StateObject var viewModel: MainAppViewModel
+
 	 @EnvironmentObject var authService: AuthService
+
+	 init(viewModel: MainAppViewModel) {
+		  _viewModel = StateObject(wrappedValue: viewModel)
+	 }
 
 
     var body: some View {
@@ -19,15 +24,13 @@ struct MainAppView: View {
 					 .tabItem {
 						  Label("Chats", systemImage: "message")
 					 }
-				ProfileView(isLoadingContent: $viewModel.isLoading)
+				ProfileView(viewModel: ProfileViewModel(authService: authService))
 					 .tabItem {
 						  Label("Profile", systemImage: "person.circle")
 					 }
 		  }
 		  .task {
-				await viewModel.fetchUserData { user in
-					 authService.user = user
-				}
+				await viewModel.fetchUserData()
 		  }
 		  .alert("Error", isPresented: $viewModel.showError, actions: {
 				Button("Ok") { }
@@ -40,6 +43,7 @@ struct MainAppView: View {
 
 struct MainAppView_Previews: PreviewProvider {
     static var previews: some View {
-        MainAppView()
+		  //TODO: FIX
+		  MainAppView(viewModel: MainAppViewModel(authService: AuthService(networkingService: NetworkService(), apiService: APIService(networkService: NetworkService()))))
     }
 }

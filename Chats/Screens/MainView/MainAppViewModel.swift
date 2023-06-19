@@ -9,18 +9,20 @@ import Foundation
 
 final class MainAppViewModel: ObservableObject {
 
-	 let apiService: APIService
+	 private let authService: AuthService
 
 	 @Published var isLoading = false
 
 	 @Published var showError = false
-	 @Published var errorMessage = ""
+	 @Published private(set) var errorMessage = ""
 
-	 init(apiService: APIService) {
-		  self.apiService = apiService
+
+	 init(authService: AuthService) {
+		  self.authService = authService
 	 }
 
-	 func fetchUserData(completion: @escaping ((User) -> Void)) async {
+	 
+	 func fetchUserData() async {
 		  await MainActor.run {
 				isLoading = true
 		  }
@@ -33,18 +35,11 @@ final class MainAppViewModel: ObservableObject {
 				}
 		  }
 
+		  
 		  do {
-				if let savedUser = PersistenceService.fetchUser() {
-					 await MainActor.run {
-						  completion(savedUser)
-					 }
-				} else {
-					 let fetchedUser = try await apiService.getUserData()
-
-					 try PersistenceService.save(user: fetchedUser)
-					 await MainActor.run {
-						  completion(fetchedUser)
-					 }
+				let user = try await authService.getUserData()
+				await MainActor.run {
+					 authService.user = user
 				}
 		  } catch let error as ErrorMessage {
 				await MainActor.run {
