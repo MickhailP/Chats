@@ -24,12 +24,13 @@ protocol AuthenticationProtocol: AnyObject {
 final class AuthService: AuthenticationProtocol, ObservableObject {
 
 	 enum AuthState {
-		  case auth, registration, authenticated
+		  case authentication, registration, authenticated
 	 }
 
-	 @Published var authState: AuthState = .auth
+	 @Published var authState: AuthState = .authentication
 
 	 let networkingService: NetworkProtocol
+	 let apiService: APIService
 
 	 @Published var verificationCode: Int?
 	 @Published var phoneNumber: String?  
@@ -41,8 +42,9 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 	 @Published var shouldRegister = false
 
 	 
-	 init(networkingService: NetworkProtocol) {
+	 init(networkingService: NetworkProtocol, apiService: APIService) {
 		  self.networkingService = networkingService
+		  self.apiService = apiService
 	 }
 
 
@@ -179,5 +181,22 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 				return request
 		  }
 		  return nil
+	 }
+
+
+	 func getUserData() async throws -> User {
+
+		  guard let phoneNumber else {
+				throw ErrorMessage.phoneNumberMissing
+		  }
+
+		  if let savedUser = PersistenceService.fetchUser(by: phoneNumber) {
+				return savedUser
+		  } else {
+				let fetchedUser = try await apiService.getUserData()
+
+				try PersistenceService.save(user: fetchedUser)
+				return fetchedUser
+		  }
 	 }
 }
