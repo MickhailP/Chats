@@ -38,6 +38,7 @@ final class APIService {
 		  }
 	 }
 
+
 	 private func checkAuthToken() async throws {
 
 		  do {
@@ -159,6 +160,121 @@ final class APIService {
 				case .failure(let error):
 					 print(error)
 					 throw error
+		  }
+	 }
+}
+
+
+//MARK: - Verification
+extension APIService {
+
+	 func sendVerifyRequest(for phoneNumber: String) async  -> Result<VerificationCode, Error> {
+
+		  guard let url = Endpoint.sendAuthCode.url else {
+				return .failure( ErrorMessage.badURl)
+		  }
+
+		  let json = """
+			 {
+			 "phone": "\(phoneNumber)"
+			 }
+			 """
+
+		  guard let uploadData = json.data(using: .utf8) else {
+				return .failure( ErrorMessage.encodingError)
+		  }
+
+		  let request = networkService.configureRequest(url: url, httpMethod: "POST", token: nil, data: uploadData)
+
+		  let result = await networkService.downloadDataResult(for: request)
+
+		  switch result {
+				case .success(let data):
+					 guard let decoded: VerificationCode = DataDecoder.decode(data) else {
+						  return .failure( ErrorMessage.decodingError)
+					 }
+
+					 return .success(decoded)
+
+				case .failure(let error):
+					 return .failure(error)
+		  }
+	 }
+}
+
+
+//MARK: - Authorisation
+extension APIService {
+
+	 func sendAuthorisationRequest(for phoneNumber: String, with verificationCode: String) async -> Result<AuthData, Error> {
+
+		  guard let url = Endpoint.checkAuthCode.url else {
+				return .failure( ErrorMessage.badURl)
+		  }
+
+		  let json = """
+				{
+				"phone": "\(phoneNumber)",
+				"code": "\(verificationCode)"
+				}
+				"""
+
+		  guard let uploadData = json.data(using: .utf8) else {
+				return .failure( ErrorMessage.encodingError)
+		  }
+
+		  let request = networkService.configureRequest(url: url, httpMethod: "POST", token: nil, data: uploadData)
+
+		  let result = await networkService.downloadDataResult(for: request)
+
+		  switch result {
+				case .success(let data):
+					 guard let authData: AuthData = DataDecoder.decode(data) else {
+						  return .failure( ErrorMessage.decodingError)
+					 }
+					 return .success(authData)
+
+				case .failure(let error):
+					 return .failure(error)
+		  }
+	 }
+}
+
+
+//MARK: - Registration
+extension APIService {
+
+	 func sendRegistrationRequest(for user: User) async -> Result<AuthData, Error> {
+
+		  guard let url = Endpoint.register.url else {
+				return .failure( ErrorMessage.badURl)
+		  }
+
+		  let json = """
+				{
+				"phone": "\(user.phone)",
+				"name": "\(user.name)",
+				"username": "\(user.username)"
+				}
+				"""
+
+		  guard let uploadData = json.data(using: .utf8) else {
+				return .failure(ErrorMessage.encodingError)
+		  }
+
+		  let request = networkService.configureRequest(url: url, httpMethod: "POST", token: nil, data: uploadData)
+
+		  let result = await networkService.downloadDataResult(for: request)
+
+		  switch result {
+				case .success(let data):
+					 guard let authData: AuthData = DataDecoder.decode(data) else {
+						  return .failure(ErrorMessage.decodingError)
+					 }
+					 return .success(authData)
+
+				case .failure(let error):
+					 return .failure(error)
 		  }
 	 }
 }
