@@ -12,64 +12,66 @@ struct ProfileView: View {
 	 @Environment(\.colorScheme) var colorScheme
 	 @EnvironmentObject var authService: AuthService
 
+	 @StateObject var viewModel: ProfileViewModel
+
 	 @State private var profileText = "Enter your bio..."
 
-	 @Binding var isLoadingContent: Bool
+
 
 	 let corner: CGFloat = 10
-
-	 @State private var showError = false
-	 @State private var errorMessage = ""
-
+	 
+	 init(viewModel: ProfileViewModel) {
+		  _viewModel = StateObject(wrappedValue: viewModel)
+	 }
 
 	 @ViewBuilder
 	 var body: some View {
-		  if !isLoadingContent {
-				NavigationView {
-					 ZStack {
-						  Gradients.main()
-								.opacity(colorScheme == .dark ? 0.5 : 0.3)
+		  NavigationView {
+				ZStack {
+					 Gradients.main()
+						  .opacity(colorScheme == .dark ? 0.5 : 0.3)
 
-						  ScrollView {
-								VStack {
+					 ScrollView {
+						  VStack {
 
-									 AvatarImageView(base64: authService.user?.avatar, online: authService.user?.online)
-										  .padding(.top, 30)
+								AvatarImageView(base64: authService.user?.avatar, online: authService.user?.online)
+									 .padding(.top, 30)
 
-									 header
+								header
 
-									 metricsSection
+								metricsSection
 
-									 personalDataSection
+								personalDataSection
 
-									 aboutMe
+								aboutMe
 
-									 socialMediaSection
-								}
-								.padding(.horizontal, 20)
-								.frame(maxWidth: .infinity)
+								socialMediaSection
 						  }
+						  .padding(.horizontal, 20)
 						  .frame(maxWidth: .infinity)
-						  .background(.ultraThinMaterial)
 					 }
-					 .navigationBarHidden(true)
-
-					 .overlay(alignment: .topTrailing) {
-						  NavigationLink {
-								if let user = authService.user {
-									 EditProfileView(viewModel: EditProfileViewModel(user: user, apiService: APIService(networkService: NetworkService())))
-								}
-						  } label: {
-								Image(systemName: "square.and.pencil")
-									 .foregroundColor(.black)
-									 .font(.title3)
-									 .padding(15)
-						  }
-						  .labelStyle(.iconOnly)
+					 .frame(maxWidth: .infinity)
+					 .background(.ultraThinMaterial)
+					 .refreshable {
+						  viewModel.refreshUserData()
 					 }
+					 .opacity(viewModel.isLoading ? 0.6 : 1)
 				}
-		  } else {
-				LoadingView()
+				.navigationBarHidden(true)
+
+				.overlay(alignment: .topTrailing) {
+					 NavigationLink {
+						  if let user = authService.user {
+								EditProfileView(viewModel: EditProfileViewModel(user: user, apiService: APIService(networkService: NetworkService())))
+						  }
+					 } label: {
+						  Image(systemName: "square.and.pencil")
+								.foregroundColor(.black)
+								.font(.title3)
+								.padding(15)
+					 }
+					 .labelStyle(.iconOnly)
+				}
 		  }
 	 }
 }
@@ -154,7 +156,7 @@ extension ProfileView {
 				Text("📱 +" + (authService.user?.phone ?? "Unknown"))
 				Text("📍 \(authService.user?.city ?? "Unknown")")
 				Text("🎁 \(authService.user?.birthday ?? "Unknown")")
-				Text(getZodiacSignAndName(from: authService.user?.birthday) ?? "Unknown")
+				Text(viewModel.getZodiacSignAndName(from: authService.user?.birthday) ?? "Unknown")
 
 		  }
 		  .padding()
@@ -212,27 +214,11 @@ extension ProfileView {
 }
 
 
-//MARK: - Zodiac
-extension ProfileView {
-
-	 private func getZodiacSignAndName(from birthday: String?) -> String?{
-
-		  if let birthday,
-			  let date = birthday.convertFromDashedDate(),
-			  let sign = ZodiacAPI.getZodiacSign(for: date) {
-
-				let signAndName = "\(sign.rawValue) \(sign.zodiacName)"
-				return signAndName
-		  }
-		  return nil
-	 }
-}
-
-
 //MARK: - Preview
 struct ProfileView_Previews: PreviewProvider {
 	 static var previews: some View {
-		  ProfileView(isLoadingContent: Binding.constant(false))
-				.environmentObject(AuthService(networkingService: NetworkService()))
+		  //TODO: FIX
+		  ProfileView(viewModel: ProfileViewModel(authService: AuthService(networkingService: NetworkService(), apiService: APIService(networkService: NetworkService()))))
+				.environmentObject(AuthService(networkingService: NetworkService(), apiService: APIService(networkService: NetworkService())))
 	 }
 }
