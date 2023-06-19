@@ -204,7 +204,7 @@ extension AuthView {
 struct AuthView_Previews: PreviewProvider {
 	 static var previews: some View {
 		  let network = NetworkService()
-		  let authService = AuthService(networkingService: network)
+		  let authService = AuthService(networkingService: network, apiService: APIService(networkService: network))
 		  AuthView(viewModel: AuthViewModel(authService: authService, regionCodeService: RegionCodesService()))
 	 }
 }

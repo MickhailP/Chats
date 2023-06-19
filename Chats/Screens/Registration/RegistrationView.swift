@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RegistrationView: View {
 
-	 @StateObject var viewModel = RegistrationViewModel(authService: AuthService(networkingService: NetworkService()), phoneNumber: "+134511551155")
+	 @StateObject var viewModel: RegistrationViewModel
 
 	 @FocusState private var focusField: Field?
 
@@ -140,6 +140,6 @@ extension RegistrationView {
 
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
-		  RegistrationView(viewModel: RegistrationViewModel(authService: AuthService(networkingService: NetworkService()), phoneNumber: "+134511551155"))
+		  RegistrationView(viewModel: RegistrationViewModel(authService: AuthService(networkingService: NetworkService(), apiService: APIService(networkService: NetworkService())), phoneNumber: "+134511551155"))
     }
 }
