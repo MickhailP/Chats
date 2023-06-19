@@ -14,6 +14,7 @@ final class RegistrationViewModel: ObservableObject {
 	 let authService: AuthenticationProtocol
 
 	 let phoneNumber: String?
+
 	 @Published var name = ""
 	 @Published var username = ""
 
@@ -43,6 +44,15 @@ final class RegistrationViewModel: ObservableObject {
 		  let user = User(phone: phoneNumber, name: name, username: username)
 
 		  Task {
+
+				defer {
+					 Task {
+						  await MainActor.run {
+								isRegistering = false
+						  }
+					 }
+				}
+
 				do {
 					 try await authService.register(user)
 				}
@@ -63,9 +73,6 @@ final class RegistrationViewModel: ObservableObject {
 						  showError = true
 						  errorMessage = ErrorMessage.unknown.rawValue
 					 }
-				}
-				await MainActor.run {
-					 isRegistering = false
 				}
 		  }
 	 }

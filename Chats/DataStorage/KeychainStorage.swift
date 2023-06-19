@@ -12,20 +12,19 @@ enum KeychainStorage {
 	 static let key = "credentials"
 
 
-	 static func getCredentials(completion: @escaping (Result<AuthData, ErrorMessage>) -> Void) {
+	 static func getCredentials() throws -> AuthData? {
 
 		  let fetchedData = KeychainWrapper.standard.data(forKey: key)
 
 		  guard let fetchedData else {
-				completion(.failure(.authDataIsMissing))
-				return
+			throw ErrorMessage.authDataIsMissing
 		  }
 
 		  do {
 				let decodedUser = try JSONDecoder().decode(AuthData.self, from: fetchedData)
-				completion(.success(decodedUser))
+				return decodedUser
 		  } catch  {
-				completion(.failure(.decodingError))
+				throw ErrorMessage.decodingError
 		  }
 	 }
 

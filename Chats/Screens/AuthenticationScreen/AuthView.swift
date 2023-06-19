@@ -28,20 +28,26 @@ struct AuthView: View {
 
 				phoneNumberAndVerificationCodeSection
 
-				VStack(spacing: 15) {
+				if !viewModel.isLoading {
+					 VStack(spacing: 15) {
 
-					 authorizationButtons()
-					 
-					 Button {
-						  withAnimation {
-								viewModel.resetUI()
-								focusField = .mask
+						  authorizationButtons()
+
+						  Button {
+								withAnimation {
+									 viewModel.resetUI()
+									 focusField = .mask
+								}
+						  } label: {
+								Text("Edit number")
+									 .font(.callout)
 						  }
-					 } label: {
-						  Text("Edit number")
-								.font(.callout)
+						  .tint(.white)
 					 }
-					 .tint(.white)
+				} else {
+					 ProgressView()
+						  .scaleEffect(2)
+						  .padding()
 				}
 
 				Spacer()
@@ -95,9 +101,10 @@ extension AuthView {
 				TextField("Verification code", text: $viewModel.verificationCode)
 					 .headlineCapsule()
 					 .shadow(radius: 10, x: 5, y: 5)
-					 .opacity(viewModel.verificationRequested ? 1 : 0)
+					 .opacity(opacityForVerificationCodeField())
 					 .keyboardType(.numberPad)
 					 .focused($focusField, equals: .code)
+					 .disabled(viewModel.isLoading)
 		  }
 	 }
 
@@ -178,11 +185,26 @@ extension AuthView {
 }
 
 
+//MARK: - VerificationCode field opacity
+extension AuthView {
+
+	 private func opacityForVerificationCodeField() -> Double {
+		  if viewModel.verificationRequested && viewModel.isLoading {
+				return 0.6
+		  } else if viewModel.verificationRequested {
+				return 1
+		  } else {
+				return 0
+		  }
+	 }
+}
+
+
 //MARK: - Preview
-struct ContentView_Previews: PreviewProvider {
+struct AuthView_Previews: PreviewProvider {
 	 static var previews: some View {
 		  let network = NetworkService()
-		  let authService = AuthService(networkingService: network)
+		  let authService = AuthService(networkingService: network, apiService: APIService(networkService: network))
 		  AuthView(viewModel: AuthViewModel(authService: authService, regionCodeService: RegionCodesService()))
 	 }
 }

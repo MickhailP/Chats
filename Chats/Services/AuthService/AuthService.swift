@@ -24,24 +24,27 @@ protocol AuthenticationProtocol: AnyObject {
 final class AuthService: AuthenticationProtocol, ObservableObject {
 
 	 enum AuthState {
-		  case auth, registration, authenticated
+		  case authentication, registration, authenticated
 	 }
 
-	 @Published var authState: AuthState = .auth
+	 @Published var authState: AuthState = .authentication
 
 	 let networkingService: NetworkProtocol
+	 let apiService: APIService
 
 	 @Published var verificationCode: Int?
 	 @Published var phoneNumber: String?  
 
 	 @Published var authData: AuthData?
+	 @Published var user: User?
 
 	 @Published private (set) var isVerified = false
 	 @Published var shouldRegister = false
 
 	 
-	 init(networkingService: NetworkProtocol) {
+	 init(networkingService: NetworkProtocol, apiService: APIService) {
 		  self.networkingService = networkingService
+		  self.apiService = apiService
 	 }
 
 
@@ -58,14 +61,14 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 		  """
 
 		  guard let request = configureTokenFreeRequest(httpMethod: "POST", url: url, json: json) else {
-				throw ErrorMessage.barRequest
+				throw ErrorMessage.badRequest
 		  }
 
 		  let result = await networkingService.downloadDataResult(for: request)
 
 		  switch result {
 				case .success(let data):
-					 guard let decoded: VerificationCode = Decoder.decode(data) else {
+					 guard let decoded: VerificationCode = DataDecoder.decode(data) else {
 						  throw ErrorMessage.decodingError
 					 }
 
@@ -79,6 +82,7 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 					 throw failure
 		  }
 	 }
+
 
 	 func authoriseUser(phoneNumber: String, verificationCode: String) async throws {
 		  await MainActor.run {
@@ -97,14 +101,14 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 				"""
 
 		  guard let request = configureTokenFreeRequest(httpMethod: "POST", url: url, json: json) else {
-				throw ErrorMessage.barRequest
+				throw ErrorMessage.badRequest
 		  }
 
 		  let result = await networkingService.downloadDataResult(for: request)
 
 		  switch result {
 				case .success(let data):
-					 guard let authData: AuthData = Decoder.decode(data) else {
+					 guard let authData: AuthData = DataDecoder.decode(data) else {
 						  throw ErrorMessage.decodingError
 					 }
 
@@ -139,14 +143,14 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 				"""
 
 		  guard let request = configureTokenFreeRequest(httpMethod: "POST", url: url, json: json) else {
-				throw ErrorMessage.barRequest
+				throw ErrorMessage.badRequest
 		  }
 
 		  let result = await networkingService.downloadDataResult(for: request)
 
 		  switch result {
 				case .success(let data):
-					 guard let authData: AuthData = Decoder.decode(data) else {
+					 guard let authData: AuthData = DataDecoder.decode(data) else {
 						  throw ErrorMessage.decodingError
 					 }
 
@@ -177,5 +181,22 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 				return request
 		  }
 		  return nil
+	 }
+
+
+	 func getUserData() async throws -> User {
+
+		  guard let phoneNumber else {
+				throw ErrorMessage.phoneNumberMissing
+		  }
+
+		  if let savedUser = PersistenceService.fetchUser(by: phoneNumber) {
+				return savedUser
+		  } else {
+				let fetchedUser = try await apiService.getUserData()
+
+				try PersistenceService.save(user: fetchedUser)
+				return fetchedUser
+		  }
 	 }
 }
