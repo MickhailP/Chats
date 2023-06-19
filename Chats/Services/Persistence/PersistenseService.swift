@@ -16,9 +16,9 @@ final class PersistenceService {
 	 }
 
 
-	 static func fetchUser() -> User? {
+	 static func fetchUser(by phone: String) -> User? {
 		  
-		  guard let fetched = defaults.data(forKey: SaveKeys.user) else {
+		  guard let fetched = defaults.data(forKey: SaveKeys.user + phone) else {
 				return nil
 		  }
 
@@ -32,7 +32,7 @@ final class PersistenceService {
 	 static func save(user: User) throws {
 		  do {
 				let encoded = try JSONEncoder().encode(user)
-				UserDefaults.standard.set(encoded, forKey: SaveKeys.user)
+				UserDefaults.standard.set(encoded, forKey: SaveKeys.user + user.phone)
 
 		  } catch  {
 				throw ErrorMessage.encodingError
