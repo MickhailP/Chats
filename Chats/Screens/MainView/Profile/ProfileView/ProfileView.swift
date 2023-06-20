@@ -14,15 +14,13 @@ struct ProfileView: View {
 
 	 @StateObject var viewModel: ProfileViewModel
 
-	 @State private var profileText = "Enter your bio..."
-
-
 
 	 let corner: CGFloat = 10
 	 
 	 init(viewModel: ProfileViewModel) {
 		  _viewModel = StateObject(wrappedValue: viewModel)
 	 }
+
 
 	 @ViewBuilder
 	 var body: some View {
@@ -60,17 +58,7 @@ struct ProfileView: View {
 				.navigationBarHidden(true)
 
 				.overlay(alignment: .topTrailing) {
-					 NavigationLink {
-						  if let user = authService.user {
-								EditProfileView(viewModel: EditProfileViewModel(user: user, apiService: APIService(networkService: NetworkService())))
-						  }
-					 } label: {
-						  Image(systemName: "square.and.pencil")
-								.foregroundColor(.black)
-								.font(.title3)
-								.padding(15)
-					 }
-					 .labelStyle(.iconOnly)
+					 editButton
 				}
 		  }
 	 }
@@ -213,6 +201,21 @@ extension ProfileView {
 		  }
 		  .padding()
 		  .robotoRegularFont(size: 15)
+	 }
+
+
+	 var editButton: some View {
+		  NavigationLink {
+				if let user = authService.user {
+					 EditProfileView(viewModel: EditProfileViewModel(user: user, apiService: APIService(networkService: NetworkService())))
+				}
+		  } label: {
+				Image(systemName: "square.and.pencil")
+					 .foregroundColor(.black)
+					 .font(.title3)
+					 .padding(15)
+		  }
+		  .labelStyle(.iconOnly)
 	 }
 }
 

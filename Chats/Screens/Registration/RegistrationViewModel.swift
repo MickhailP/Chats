@@ -18,8 +18,8 @@ final class RegistrationViewModel: ObservableObject {
 	 @Published var name = ""
 	 @Published var username = ""
 
-	 @Published var isRegistering = false
-	 @Published var isUsernameValid = false
+	 @Published private(set) var isRegistering = false
+	 @Published private(set) var isUsernameValid = false
 
 	 @MainActor @Published var showError = false
 	 @MainActor @Published private(set) var errorMessage = ""
@@ -71,11 +71,12 @@ final class RegistrationViewModel: ObservableObject {
 				catch {
 					 await MainActor.run {
 						  showError = true
-						  errorMessage = ErrorMessage.unknown.rawValue
+						  errorMessage = error.localizedDescription
 					 }
 				}
 		  }
 	 }
+
 
 	 private func subscribeOnUsername() {
 		  $username

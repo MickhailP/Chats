@@ -11,7 +11,7 @@ final class MainAppViewModel: ObservableObject {
 
 	 private let authService: AuthenticationProtocol
 
-	 @Published var isLoading = false
+	 @Published private(set) var isLoading = false
 
 	 @Published var showError = false
 	 @Published private(set) var errorMessage = ""

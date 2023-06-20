@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+
 final class AuthViewModel: ObservableObject {
 
 	 let authService: AuthenticationProtocol
@@ -21,7 +22,6 @@ final class AuthViewModel: ObservableObject {
 	 @Published var phoneNumber = ""
 	 @Published var verificationCode = ""
 
-
 	 @Published private(set) var verificationRequested = false
 	 @Published private(set) var isLoading = false
 	 @Published private(set) var isAuthorisation = false
@@ -31,7 +31,8 @@ final class AuthViewModel: ObservableObject {
 
 	 @Published var showCountriesVariants = false
 	 @Published private(set) var countriesVariants: [String: String] = [:]
-	 
+
+	 var cancellables = Set<AnyCancellable>()
 
 	 var formattedNumber: String? {
 		  if let phoneNumber = Int(phoneNumber), let countryMask = Int(countryMask) {
@@ -42,8 +43,6 @@ final class AuthViewModel: ObservableObject {
 				return nil
 		  }
 	 }
-
-	 var cancellables = Set<AnyCancellable>()
 
 	 
 	 init(authService: AuthenticationProtocol, regionCodeService: RegionCodesService) {
@@ -82,7 +81,8 @@ final class AuthViewModel: ObservableObject {
 
 				do {
 					 try await authService.verify(phoneNumber: formattedNumber)
-				} catch let error as ErrorMessage {
+				}
+				catch let error as ErrorMessage {
 					 await MainActor.run {
 						  showError.toggle()
 						  errorMessage = error.rawValue
@@ -91,7 +91,7 @@ final class AuthViewModel: ObservableObject {
 				}
 				catch let error as ValidationError {
 					 await MainActor.run {
-						  showError = true
+						  showError.toggle()
 						  errorMessage = error.detail.first?.msg ?? "Validation error"
 						  resetUI()
 					 }
@@ -112,7 +112,6 @@ final class AuthViewModel: ObservableObject {
 		  isAuthorisation = true
 
 		  if authService.isVerified {
-
 
 				guard let formattedNumber else {
 					 showError.toggle()
@@ -165,11 +164,6 @@ final class AuthViewModel: ObservableObject {
 	 }
 
 
-	 func sendToRegistration() {
-		  authService.shouldRegister = true
-	 }
-
-
 	 func changeMaskAndCode(for key: String) {
 		  if let countryData = getCountryData(for: key) {
 				countryNameAndFlag = "\(countryData.name) \(countryData.flag)"
@@ -194,7 +188,7 @@ final class AuthViewModel: ObservableObject {
 	 }
 
 
-	 func setLocalCountry() {
+	 private func setLocalCountry() {
 		  if let regionCode = Locale.current.regionCode {
 				changeMaskAndCode(for: regionCode)
 		  }

@@ -16,7 +16,8 @@ struct AuthView: View {
 	 enum Field {
 		  case mask, phone, code
 	 }
-	 
+
+
 	 var body: some View {
 		  VStack(spacing: 20) {
 				Spacer()
@@ -54,34 +55,12 @@ struct AuthView: View {
 		  .onTapGesture {
 				focusField = .none
 		  }
-		  .overlay(alignment: .bottom) {
-				Button {
-					 withAnimation {
-						  viewModel.sendToRegistration()
-					 }
-				} label: {
-					 Text("Don't have an account? Create one.")
-						  .robotoBoldFont(size: 15)
-				}
-				.tint(.white)
-		  }
 		  .padding()
 		  .background(
-				LinearGradient(gradient: Gradient(colors: [.cyan, .blue]), startPoint: .top, endPoint: .bottom)
-					 .edgesIgnoringSafeArea(.all)
+				Gradients.main()
 		  )
 		  .confirmationDialog("Select country", isPresented: $viewModel.showCountriesVariants, actions: {
-				ForEach(Array(viewModel.countriesVariants.keys), id: \.self) { country in
-					 Button {
-						  viewModel.changeMaskAndCode(for: country)
-						  viewModel.cancellables.removeAll()
-						  focusField = .phone
-					 } label: {
-						  if let countryData = viewModel.getCountryData(for: country) {
-								Text("\(countryData.name) \(countryData.flag)  \(countryData.mask)")
-						  }
-					 }
-				}
+				countryButtonsVariants
 		  }, message: {
 				Text("Seems there are some duplicates with your country code. Please, select one.")
 		  })
@@ -189,6 +168,20 @@ extension AuthView {
 				.buttonStyle(.borderedProminent)
 				.tint(.green)
 				.shadow(radius: 5, x: 5, y: 5)
+		  }
+	 }
+
+	 var countryButtonsVariants: some View {
+		  ForEach(Array(viewModel.countriesVariants.keys), id: \.self) { country in
+				Button {
+					 viewModel.changeMaskAndCode(for: country)
+					 viewModel.cancellables.removeAll()
+					 focusField = .phone
+				} label: {
+					 if let countryData = viewModel.getCountryData(for: country) {
+						  Text("\(countryData.name) \(countryData.flag)  \(countryData.mask)")
+					 }
+				}
 		  }
 	 }
 }

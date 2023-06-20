@@ -18,6 +18,7 @@ struct RegistrationView: View {
 		  case name, username
 	 }
 
+
 	 init(viewModel: RegistrationViewModel) {
 		  _viewModel = StateObject(wrappedValue: viewModel)
 	 }
@@ -80,61 +81,65 @@ extension RegistrationView {
 
 	 }
 
+	 @ViewBuilder
 	 var registrationFields: some View {
-		  Group {
-				VStack(alignment: .leading, spacing: 20) {
+		  VStack(alignment: .leading, spacing: 20) {
+
+				phoneLabel
+
+				Group {
 					 HStack {
-						  Image(systemName: "iphone.gen2")
-
-						  Text(viewModel.phoneNumber ?? "NA")
-						  Spacer()
+						  Image(systemName: "person.fill")
+						  TextField("Name", text: $viewModel.name)
+								.focused($focusField, equals: .name)
+								.onSubmit {
+									 focusField = .username
+								}
 					 }
-					 .padding()
-					 .frame(maxWidth: .infinity)
-					 .robotoBoldFont(size: 17)
-					 .foregroundColor(.white)
 
+					 HStack {
+						  Image(systemName: "character.textbox")
+						  TextField("Username", text: $viewModel.username)
+								.focused($focusField, equals: .username)
+								.onSubmit {
+									 viewModel.registerPressed()
+								}
+								.overlay(
+									 ZStack{
+										  Image(systemName: viewModel.isUsernameValid ? "checkmark" : "xmark")
+												.foregroundColor(viewModel.isUsernameValid ? .green : .red)
 
-					 Group {
-						  HStack {
-								Image(systemName: "person.fill")
-								TextField("Name", text: $viewModel.name)
-									 .focused($focusField, equals: .name)
-									 .onSubmit {
-										  focusField = .username
 									 }
-						  }
-
-						  HStack {
-								Image(systemName: "character.textbox")
-								TextField("Username", text: $viewModel.username)
-									 .focused($focusField, equals: .username)
-									 .onSubmit {
-										  viewModel.registerPressed()
-									 }
-									 .overlay(
-										  ZStack{
-												Image(systemName: viewModel.isUsernameValid ? "checkmark" : "xmark")
-													 .foregroundColor(viewModel.isUsernameValid ? .green : .red)
-
-										  }
-												.robotoRegularFont(size: 18)
-												. padding(.trailing, 30) , alignment: .trailing
-									 )
-						  }
+										  .robotoRegularFont(size: 18)
+										  . padding(.trailing, 30) , alignment: .trailing
+								)
 					 }
-					 .headlineCapsule()
-
 				}
-				.padding(.horizontal, 20)
+				.headlineCapsule()
 
-				Text("Allowed symbols: A-z, a-z, 0-9, _ -")
-					 .robotoRegularFont(size: 12)
-					 .foregroundColor(.secondary)
-					 .frame(maxWidth: .infinity, alignment: .leading)
-					 .padding(.horizontal, 20)
-					 .padding(.top, 5)
 		  }
+		  .padding(.horizontal, 20)
+
+		  Text("Allowed symbols: A-z, a-z, 0-9, _ -")
+				.robotoRegularFont(size: 12)
+				.foregroundColor(.secondary)
+				.frame(maxWidth: .infinity, alignment: .leading)
+				.padding(.horizontal, 20)
+				.padding(.top, 5)
+
+	 }
+
+	 var phoneLabel: some View {
+		  HStack {
+				Image(systemName: "iphone.gen2")
+
+				Text(viewModel.phoneNumber ?? "NA")
+				Spacer()
+		  }
+		  .padding()
+		  .frame(maxWidth: .infinity)
+		  .robotoBoldFont(size: 17)
+		  .foregroundColor(.white)
 	 }
 }
 
