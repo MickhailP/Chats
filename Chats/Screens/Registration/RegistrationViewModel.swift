@@ -81,7 +81,6 @@ final class RegistrationViewModel: ObservableObject {
 		  $username
 				.debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
 				.map { text -> Bool in
-					 print(text.isValidUserName())
 
 					 if text.isValidUserName() {
 						  return true

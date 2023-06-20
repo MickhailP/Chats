@@ -31,6 +31,7 @@ struct EditProfileView: View {
 					 socialMediaSection
 
 				}
+				.robotoRegularFont(size: 15)
 				.navigationTitle("Edit profile")
 				.toolbar {
 					 ToolbarItem(placement: .confirmationAction) {
@@ -79,14 +80,14 @@ extension EditProfileView {
 								viewModel.showImagePicker = true
 						  } label: {
 								Text("Change")
-									 .font(.caption)
+									 .robotoRegularFont(size: 12)
 						  }
 					 }
 
 					 VStack(spacing: 15) {
 						  VStack(alignment: .leading, spacing: 5) {
 								Text("Username:")
-									 .font(.subheadline)
+									 .robotoRegularFont(size: 14)
 									 .foregroundColor(.secondary)
 								Text(viewModel.user.username)
 
@@ -95,12 +96,13 @@ extension EditProfileView {
 
 						  VStack(alignment: .leading, spacing: 5) {
 								Text("Phone:")
-									 .font(.subheadline)
+									 .robotoRegularFont(size: 14)
 									 .foregroundColor(.secondary)
 								Text(viewModel.user.phone)
 						  }
 					 }
 					 .padding(.horizontal, 20)
+					 .robotoRegularFont(size: 17)
 				}
 		  }
 	 }

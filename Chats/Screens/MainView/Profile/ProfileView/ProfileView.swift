@@ -82,9 +82,10 @@ extension ProfileView {
 	 var header: some View {
 		  VStack(spacing: 5) {
 				Text(authService.user?.name ?? "Unknown")
-					 .font(.title)
+					 .robotoBoldFont(size: 30)
 				Text(authService.user?.username ?? "Unknown")
 					 .foregroundColor(.secondary)
+					 .robotoRegularFont(size: 18)
 		  }
 		  .padding()
 		  .regularShadow()
@@ -146,14 +147,14 @@ extension ProfileView {
 				.padding(10)
 				.grayRoundedContainer()
 		  }
-		  .font(.subheadline)
+		  .robotoRegularFont(size: 14)
 		  .regularShadow()
 	 }
 
 
 	 var personalDataSection: some View {
 		  VStack(alignment: .leading, spacing: 10) {
-				Text("📱 +" + (authService.user?.phone ?? "Unknown"))
+				Text("📱 + " + (authService.user?.phone ?? "Unknown"))
 				Text("📍 \(authService.user?.city ?? "Unknown")")
 				Text("🎁 \(authService.user?.birthday ?? "Unknown")")
 				Text(viewModel.getZodiacSignAndName(from: authService.user?.birthday) ?? "Unknown")
@@ -167,7 +168,7 @@ extension ProfileView {
 	 var aboutMe: some View {
 		  VStack(spacing: 5) {
 				Text("About me")
-					 .font(.headline)
+					 .robotoBoldFont(size: 18)
 					 .frame(maxWidth: .infinity, alignment: .leading)
 
 
@@ -180,6 +181,7 @@ extension ProfileView {
 					 .regularShadow()
 		  }
 		  .padding()
+		  .robotoRegularFont(size: 15)
 	 }
 
 
@@ -187,7 +189,7 @@ extension ProfileView {
 		  VStack(alignment: .leading, spacing: 10) {
 				HStack {
 					 Text("Social media")
-						  .font(.headline)
+						  .robotoBoldFont(size: 18)
 					 Spacer()
 				}
 
@@ -210,6 +212,7 @@ extension ProfileView {
 				}
 		  }
 		  .padding()
+		  .robotoRegularFont(size: 15)
 	 }
 }
 

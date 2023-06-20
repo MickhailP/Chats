@@ -22,8 +22,7 @@ struct AuthView: View {
 				Spacer()
 
 				Text("Login")
-					 .font(.largeTitle)
-					 .fontWeight(.bold)
+					 .robotoBoldFont(size: 35)
 					 .foregroundColor(.white)
 
 				phoneNumberAndVerificationCodeSection
@@ -40,7 +39,7 @@ struct AuthView: View {
 								}
 						  } label: {
 								Text("Edit number")
-									 .font(.callout)
+									 .robotoRegularFont(size: 15)
 						  }
 						  .tint(.white)
 					 }
@@ -62,7 +61,7 @@ struct AuthView: View {
 					 }
 				} label: {
 					 Text("Don't have an account? Create one.")
-						  .fontWeight(.bold)
+						  .robotoBoldFont(size: 15)
 				}
 				.tint(.white)
 		  }
@@ -121,6 +120,7 @@ extension AuthView {
 									 //CHANGE TO COUNTRY DATA
 									 if let countryData = viewModel.getCountryData(for: countryCode) {
 										  Text("\(countryData.name) \(countryData.flag)  \(countryData.mask)")
+												.robotoRegularFont(size: 15)
 									 }
 								}
 						  }
@@ -167,6 +167,7 @@ extension AuthView {
 					 }
 				} label: {
 					 Text("Send verification code")
+						  .robotoRegularFont(size: 20)
 						  .frame(maxHeight: 35)
 				}
 				.buttonStyle(.borderedProminent)
