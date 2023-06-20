@@ -9,7 +9,7 @@ import Foundation
 
 final class MainAppViewModel: ObservableObject {
 
-	 private let authService: AuthService
+	 private let authService: AuthenticationProtocol
 
 	 @Published var isLoading = false
 
@@ -17,7 +17,7 @@ final class MainAppViewModel: ObservableObject {
 	 @Published private(set) var errorMessage = ""
 
 
-	 init(authService: AuthService) {
+	 init(authService: AuthenticationProtocol) {
 		  self.authService = authService
 	 }
 

@@ -132,6 +132,5 @@ final class EditProfileViewModel: ObservableObject {
 
 	 private func saveToUserDefaults(_ user: User) throws {
 		  try PersistenceService.save(user: user)
-		  print("SAVED")
 	 }
 }

@@ -11,6 +11,7 @@ import Combine
 
 protocol AuthenticationProtocol: AnyObject {
 	 var networkingService: NetworkProtocol { get }
+	 var user: User? { get set }
 	 var isVerified: Bool { get }
 	 var shouldRegister: Bool { get set }
 
@@ -18,6 +19,7 @@ protocol AuthenticationProtocol: AnyObject {
 	 func verify(phoneNumber: String) async throws
 	 func authoriseUser(phoneNumber: String, verificationCode: String) async throws
 	 func register(_ user: User) async throws
+	 func getUserData() async throws -> User
 }
 
 
