@@ -75,7 +75,8 @@ struct AuthView: View {
 				ForEach(Array(viewModel.countriesVariants.keys), id: \.self) { country in
 					 Button {
 						  viewModel.changeMaskAndCode(for: country)
-						  
+						  viewModel.cancellables.removeAll()
+						  focusField = .phone
 					 } label: {
 						  if let countryData = viewModel.getCountryData(for: country) {
 								Text("\(countryData.name) \(countryData.flag)  \(countryData.mask)")
@@ -126,12 +127,19 @@ extension AuthView {
 					 }
 
 					 Text("+")
-					 TextField("000", text: $viewModel.countryMask)
+					 TextField("000", text: $viewModel.countryMask, onEditingChanged: { isBegin in
+						  if isBegin {
+								viewModel.subscribeOnCountryMask()
+								print(viewModel.cancellables.count)
+						  } else {
+								print(viewModel.cancellables.count)
+								viewModel.cancellables.removeAll()
+						  }
+					 })
 						  .frame(maxWidth: 60)
 						  .keyboardType(.phonePad)
 						  .multilineTextAlignment(.trailing)
 						  .focused($focusField, equals: .mask)
-
 				}
 				.padding(.horizontal, 5)
 				.disabled(viewModel.verificationRequested)

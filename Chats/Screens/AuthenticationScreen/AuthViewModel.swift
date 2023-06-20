@@ -52,9 +52,9 @@ final class AuthViewModel: ObservableObject {
 		  countries = regionCodeService.countryCodes
 
 		  setLocalCountry()
-		  subscribeOnCountryMask()
 	 }
 
+	 
 	 func requestVerificationCode(for number: String) {
 		  isLoading = true
 		  verificationRequested = true
@@ -116,8 +116,6 @@ final class AuthViewModel: ObservableObject {
 					 isLoading = false
 					 return
 				}
-
-				print(formattedNumber + verificationCode)
 
 				Task {
 					 defer {
@@ -184,17 +182,19 @@ final class AuthViewModel: ObservableObject {
 		  verificationCode = ""
 	 }
 
+
 	 func setLocalCountry() {
 		  if let regionCode = Locale.current.regionCode {
 				changeMaskAndCode(for: regionCode)
 		  }
 	 }
 
-	 private func subscribeOnCountryMask() {
+
+	 func subscribeOnCountryMask() {
 		  $countryMask
 				.dropFirst(1)
 				.debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
-				.sink { [weak self ] countryMask in
+				.sink { [weak self] countryMask in
 					 guard let self = self else { return }
 
 					 let filteredCountries = self.countries.filter({ $0.value == countryMask })
