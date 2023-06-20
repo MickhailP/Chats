@@ -56,6 +56,27 @@ struct GrayRoundedContainer: ViewModifier {
 }
 
 
+struct RegularRobotoFont: ViewModifier {
+
+	 let size: CGFloat
+
+	 func body(content: Content) -> some View {
+		  content
+				.font(.custom("Roboto-Regular", size: size))
+	 }
+}
+
+struct BoldRobotoFont: ViewModifier {
+
+	 let size: CGFloat
+
+	 func body(content: Content) -> some View {
+		  content
+				.font(.custom("Roboto-Bold", size: size))
+	 }
+}
+
+//MARK: - Modifiers func
 extension View {
 
 	 func headlineCapsule() -> some View {
@@ -71,9 +92,22 @@ extension View {
 	 }
 }
 
+
 extension Button {
 
 	 func bigGreenButton() -> some View {
 		  modifier(GreenButton())
+	 }
+}
+
+
+extension View {
+
+	 func robotoRegularFont(size: CGFloat) -> some View {
+		  modifier(RegularRobotoFont(size: size))
+	 }
+
+	 func robotoBoldFont(size: CGFloat) -> some View {
+		  modifier(BoldRobotoFont(size: size))
 	 }
 }

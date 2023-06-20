@@ -126,12 +126,19 @@ final class EditProfileViewModel: ObservableObject {
 
 
 	 private func updateCurrentUserData(with update: UserUpdate) -> User {
-		  User(phone: user.phone, name: update.name, username: user.username, birthday: update.birthday, city: update.city, vk: update.vk, instagram: update.instagram, status: update.status, online: user.online)
+		  User(phone: user.phone,
+				 name: update.name,
+				 username: user.username,
+				 birthday: update.birthday,
+				 city: update.city,
+				 vk: update.vk,
+				 instagram: update.instagram,
+				 status: update.status,
+				 online: user.online)
 	 }
 
 
 	 private func saveToUserDefaults(_ user: User) throws {
 		  try PersistenceService.save(user: user)
-		  print("SAVED")
 	 }
 }

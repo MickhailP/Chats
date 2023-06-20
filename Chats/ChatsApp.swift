@@ -10,8 +10,9 @@ import SwiftUI
 @main
 struct ChatsApp: App {
 
-	 //TODO: fix
 	 @StateObject var authenticationService: AuthService
+	 @StateObject var networkMonitor = NetworkMonitor()
+	 @State private var showNetworkAlert = false
 
 	 init() {
 		  let networkService = NetworkService()
@@ -37,6 +38,15 @@ struct ChatsApp: App {
 				}
 				.environmentObject(authenticationService)
 				.animation(.easeInOut, value: authenticationService.authState)
+				.onChange(of: networkMonitor.isConnected) { connection in
+					 showNetworkAlert = connection == false
+					 
+				}
+				.alert("Network error", isPresented: $showNetworkAlert) {
+					 Button("Ok") { }
+				} message: {
+					 Text("Seems you are offline.\n Check your internet connection")
+				}
 		  }
     }
 }

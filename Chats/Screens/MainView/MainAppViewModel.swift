@@ -9,15 +9,15 @@ import Foundation
 
 final class MainAppViewModel: ObservableObject {
 
-	 private let authService: AuthService
+	 private let authService: AuthenticationProtocol
 
-	 @Published var isLoading = false
+	 @Published private(set) var isLoading = false
 
 	 @Published var showError = false
 	 @Published private(set) var errorMessage = ""
 
 
-	 init(authService: AuthService) {
+	 init(authService: AuthenticationProtocol) {
 		  self.authService = authService
 	 }
 

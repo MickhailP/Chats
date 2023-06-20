@@ -14,15 +14,13 @@ struct ProfileView: View {
 
 	 @StateObject var viewModel: ProfileViewModel
 
-	 @State private var profileText = "Enter your bio..."
-
-
 
 	 let corner: CGFloat = 10
 	 
 	 init(viewModel: ProfileViewModel) {
 		  _viewModel = StateObject(wrappedValue: viewModel)
 	 }
+
 
 	 @ViewBuilder
 	 var body: some View {
@@ -60,17 +58,7 @@ struct ProfileView: View {
 				.navigationBarHidden(true)
 
 				.overlay(alignment: .topTrailing) {
-					 NavigationLink {
-						  if let user = authService.user {
-								EditProfileView(viewModel: EditProfileViewModel(user: user, apiService: APIService(networkService: NetworkService())))
-						  }
-					 } label: {
-						  Image(systemName: "square.and.pencil")
-								.foregroundColor(.black)
-								.font(.title3)
-								.padding(15)
-					 }
-					 .labelStyle(.iconOnly)
+					 editButton
 				}
 		  }
 	 }
@@ -82,9 +70,10 @@ extension ProfileView {
 	 var header: some View {
 		  VStack(spacing: 5) {
 				Text(authService.user?.name ?? "Unknown")
-					 .font(.title)
+					 .robotoBoldFont(size: 30)
 				Text(authService.user?.username ?? "Unknown")
 					 .foregroundColor(.secondary)
+					 .robotoRegularFont(size: 18)
 		  }
 		  .padding()
 		  .regularShadow()
@@ -146,14 +135,14 @@ extension ProfileView {
 				.padding(10)
 				.grayRoundedContainer()
 		  }
-		  .font(.subheadline)
+		  .robotoRegularFont(size: 14)
 		  .regularShadow()
 	 }
 
 
 	 var personalDataSection: some View {
 		  VStack(alignment: .leading, spacing: 10) {
-				Text("📱 +" + (authService.user?.phone ?? "Unknown"))
+				Text("📱 + " + (authService.user?.phone ?? "Unknown"))
 				Text("📍 \(authService.user?.city ?? "Unknown")")
 				Text("🎁 \(authService.user?.birthday ?? "Unknown")")
 				Text(viewModel.getZodiacSignAndName(from: authService.user?.birthday) ?? "Unknown")
@@ -167,7 +156,7 @@ extension ProfileView {
 	 var aboutMe: some View {
 		  VStack(spacing: 5) {
 				Text("About me")
-					 .font(.headline)
+					 .robotoBoldFont(size: 18)
 					 .frame(maxWidth: .infinity, alignment: .leading)
 
 
@@ -180,6 +169,7 @@ extension ProfileView {
 					 .regularShadow()
 		  }
 		  .padding()
+		  .robotoRegularFont(size: 15)
 	 }
 
 
@@ -187,7 +177,7 @@ extension ProfileView {
 		  VStack(alignment: .leading, spacing: 10) {
 				HStack {
 					 Text("Social media")
-						  .font(.headline)
+						  .robotoBoldFont(size: 18)
 					 Spacer()
 				}
 
@@ -210,6 +200,22 @@ extension ProfileView {
 				}
 		  }
 		  .padding()
+		  .robotoRegularFont(size: 15)
+	 }
+
+
+	 var editButton: some View {
+		  NavigationLink {
+				if let user = authService.user {
+					 EditProfileView(viewModel: EditProfileViewModel(user: user, apiService: APIService(networkService: NetworkService())))
+				}
+		  } label: {
+				Image(systemName: "square.and.pencil")
+					 .foregroundColor(.black)
+					 .font(.title3)
+					 .padding(15)
+		  }
+		  .labelStyle(.iconOnly)
 	 }
 }
 

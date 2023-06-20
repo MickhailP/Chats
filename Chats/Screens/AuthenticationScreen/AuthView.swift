@@ -16,14 +16,14 @@ struct AuthView: View {
 	 enum Field {
 		  case mask, phone, code
 	 }
-	 
+
+
 	 var body: some View {
 		  VStack(spacing: 20) {
 				Spacer()
 
 				Text("Login")
-					 .font(.largeTitle)
-					 .fontWeight(.bold)
+					 .robotoBoldFont(size: 35)
 					 .foregroundColor(.white)
 
 				phoneNumberAndVerificationCodeSection
@@ -40,7 +40,7 @@ struct AuthView: View {
 								}
 						  } label: {
 								Text("Edit number")
-									 .font(.callout)
+									 .robotoRegularFont(size: 15)
 						  }
 						  .tint(.white)
 					 }
@@ -55,33 +55,12 @@ struct AuthView: View {
 		  .onTapGesture {
 				focusField = .none
 		  }
-		  .overlay(alignment: .bottom) {
-				Button {
-					 withAnimation {
-						  viewModel.sendToRegistration()
-					 }
-				} label: {
-					 Text("Don't have an account? Create one.")
-						  .fontWeight(.bold)
-				}
-				.tint(.white)
-		  }
 		  .padding()
 		  .background(
-				LinearGradient(gradient: Gradient(colors: [.cyan, .blue]), startPoint: .top, endPoint: .bottom)
-					 .edgesIgnoringSafeArea(.all)
+				Gradients.main()
 		  )
 		  .confirmationDialog("Select country", isPresented: $viewModel.showCountriesVariants, actions: {
-				ForEach(Array(viewModel.countriesVariants.keys), id: \.self) { country in
-					 Button {
-						  viewModel.changeMaskAndCode(for: country)
-						  
-					 } label: {
-						  if let countryData = viewModel.getCountryData(for: country) {
-								Text("\(countryData.name) \(countryData.flag)  \(countryData.mask)")
-						  }
-					 }
-				}
+				countryButtonsVariants
 		  }, message: {
 				Text("Seems there are some duplicates with your country code. Please, select one.")
 		  })
@@ -120,18 +99,26 @@ extension AuthView {
 									 //CHANGE TO COUNTRY DATA
 									 if let countryData = viewModel.getCountryData(for: countryCode) {
 										  Text("\(countryData.name) \(countryData.flag)  \(countryData.mask)")
+												.robotoRegularFont(size: 15)
 									 }
 								}
 						  }
 					 }
 
 					 Text("+")
-					 TextField("000", text: $viewModel.countryMask)
+					 TextField("000", text: $viewModel.countryMask, onEditingChanged: { isBegin in
+						  if isBegin {
+								viewModel.subscribeOnCountryMask()
+								print(viewModel.cancellables.count)
+						  } else {
+								print(viewModel.cancellables.count)
+								viewModel.cancellables.removeAll()
+						  }
+					 })
 						  .frame(maxWidth: 60)
 						  .keyboardType(.phonePad)
 						  .multilineTextAlignment(.trailing)
 						  .focused($focusField, equals: .mask)
-
 				}
 				.padding(.horizontal, 5)
 				.disabled(viewModel.verificationRequested)
@@ -159,6 +146,7 @@ extension AuthView {
 					 }
 				} label: {
 					 Text("Send verification code")
+						  .robotoRegularFont(size: 20)
 						  .frame(maxHeight: 35)
 				}
 				.buttonStyle(.borderedProminent)
@@ -180,6 +168,20 @@ extension AuthView {
 				.buttonStyle(.borderedProminent)
 				.tint(.green)
 				.shadow(radius: 5, x: 5, y: 5)
+		  }
+	 }
+
+	 var countryButtonsVariants: some View {
+		  ForEach(Array(viewModel.countriesVariants.keys), id: \.self) { country in
+				Button {
+					 viewModel.changeMaskAndCode(for: country)
+					 viewModel.cancellables.removeAll()
+					 focusField = .phone
+				} label: {
+					 if let countryData = viewModel.getCountryData(for: country) {
+						  Text("\(countryData.name) \(countryData.flag)  \(countryData.mask)")
+					 }
+				}
 		  }
 	 }
 }

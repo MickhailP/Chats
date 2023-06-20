@@ -15,6 +15,7 @@ final class ProfileViewModel: ObservableObject {
 
 	 @Published var showError = false
 	 @Published private(set) var errorMessage = ""
+	 
 
 	 init(authService: AuthService) {
 		  self.authService = authService
@@ -55,6 +56,7 @@ final class ProfileViewModel: ObservableObject {
 		  }
 	 }
 
+	 
 	 func getZodiacSignAndName(from birthday: String?) -> String?{
 
 		  if let birthday,
@@ -67,8 +69,8 @@ final class ProfileViewModel: ObservableObject {
 		  return nil
 	 }
 
+
 	 private func saveToUserDefaults(_ user: User) throws {
 		  try PersistenceService.save(user: user)
-		  print("SAVED")
 	 }
 }
