@@ -18,8 +18,8 @@ final class AuthViewModel: ObservableObject {
 	 @Published var countryNameAndFlag = ""
 	 @Published var countryMask = ""
 
-	 @Published var phoneNumber = "9196557367"
-	 @Published var verificationCode = "133337"
+	 @Published var phoneNumber = ""
+	 @Published var verificationCode = ""
 
 
 	 @Published private(set) var verificationRequested = false
@@ -79,24 +79,28 @@ final class AuthViewModel: ObservableObject {
 					 }
 				}
 
+
 				do {
 					 try await authService.verify(phoneNumber: formattedNumber)
 				} catch let error as ErrorMessage {
 					 await MainActor.run {
 						  showError.toggle()
 						  errorMessage = error.rawValue
+						  resetUI()
 					 }
 				}
 				catch let error as ValidationError {
 					 await MainActor.run {
 						  showError = true
 						  errorMessage = error.detail.first?.msg ?? "Validation error"
+						  resetUI()
 					 }
 				}
 				catch {
 					 await MainActor.run {
 						  showError.toggle()
-						  errorMessage = ErrorMessage.unknown.rawValue
+						  errorMessage = error.localizedDescription
+						  resetUI()
 					 }
 				}
 		  }
@@ -113,7 +117,7 @@ final class AuthViewModel: ObservableObject {
 				guard let formattedNumber else {
 					 showError.toggle()
 					 errorMessage = "Phone number is empty!"
-					 isLoading = false
+					 resetUI()
 					 return
 				}
 
@@ -131,24 +135,30 @@ final class AuthViewModel: ObservableObject {
 					 }
 					 catch let error as ErrorMessage {
 						  await MainActor.run {
+								resetUI()
 								showError = true
 								errorMessage = error.rawValue
 						  }
 					 }
 					 catch let error as NotFoundError {
 						  await MainActor.run {
+								resetUI()
 								showError = true
 								errorMessage = error.detail.message
 						  }
 					 }
 					 catch {
 						  await MainActor.run {
+								resetUI()
 								showError = true
-								errorMessage = ErrorMessage.unknown.rawValue
+								errorMessage = error.localizedDescription
+
 						  }
 					 }
 				}
 		  } else {
+				resetUI()
+
 				showError = true
 				errorMessage = ErrorMessage.verificationError.rawValue
 		  }
@@ -178,6 +188,7 @@ final class AuthViewModel: ObservableObject {
 
 
 	 func resetUI() {
+		  isLoading = false
 		  verificationRequested = false
 		  verificationCode = ""
 	 }
