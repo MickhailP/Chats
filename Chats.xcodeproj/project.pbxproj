@@ -219,7 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				D7C94C4B2A3DA69C00C05915 /* ZodiacAPI */,
-				D7C94C452A3C896900C05915 /* Persistence */,
 				D7C2DD6D2A33BBB300E6CEAD /* RegionCodesService */,
 				D766A3E82A32550F004E17FF /* AuthService */,
 				D787666B2A31E0D1002B9717 /* Networking */,
@@ -307,9 +306,8 @@
 		D79ACA082A38E49600E3C3E5 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				D7CACAC92A41777A0013F589 /* ProfileView */,
 				D79ACA1A2A39EC3300E3C3E5 /* EditProfile */,
-				D79ACA0B2A38E4C600E3C3E5 /* ProfileView.swift */,
-				D7488C462A3FA124007BE04B /* ProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -362,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				D7C2DD662A337EB000E6CEAD /* KeychainStorage.swift */,
+				D7C94C462A3C899600C05915 /* PersistenseService.swift */,
 			);
 			name = DataStorage;
 			path = ../DataStorage;
@@ -384,14 +383,6 @@
 			path = RegionCodesService;
 			sourceTree = "<group>";
 		};
-		D7C94C452A3C896900C05915 /* Persistence */ = {
-			isa = PBXGroup;
-			children = (
-				D7C94C462A3C899600C05915 /* PersistenseService.swift */,
-			);
-			path = Persistence;
-			sourceTree = "<group>";
-		};
 		D7C94C4B2A3DA69C00C05915 /* ZodiacAPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +397,15 @@
 				D7C94C4F2A3DCA4A00C05915 /* LoadingView.swift */,
 			);
 			path = LoadingView;
+			sourceTree = "<group>";
+		};
+		D7CACAC92A41777A0013F589 /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				D79ACA0B2A38E4C600E3C3E5 /* ProfileView.swift */,
+				D7488C462A3FA124007BE04B /* ProfileViewModel.swift */,
+			);
+			path = ProfileView;
 			sourceTree = "<group>";
 		};
 		D7F746552A31E9C900E6D06D /* Screens */ = {
