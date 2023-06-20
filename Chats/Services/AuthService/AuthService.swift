@@ -11,13 +11,15 @@ import Combine
 
 protocol AuthenticationProtocol: AnyObject {
 	 var networkingService: NetworkProtocol { get }
+	 
+	 var user: User? { get set }
+	 var phoneNumber: String? { get set }
 	 var isVerified: Bool { get }
-	 var shouldRegister: Bool { get set }
-
 
 	 func verify(phoneNumber: String) async throws
 	 func authoriseUser(phoneNumber: String, verificationCode: String) async throws
 	 func register(_ user: User) async throws
+	 func getUserData() async throws -> User
 }
 
 
@@ -39,7 +41,6 @@ final class AuthService: AuthenticationProtocol, ObservableObject {
 	 @Published var user: User?
 
 	 @Published private (set) var isVerified = false
-	 @Published var shouldRegister = false
 
 	 
 	 init(networkingService: NetworkProtocol, apiService: APIService) {
